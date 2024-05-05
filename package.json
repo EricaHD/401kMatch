@@ -1,0 +1,44 @@
+{
+  "name": "401kMatch",
+  "version": "1.0.0",
+  "description": "401k Per-Paycheck Matching Calculator",
+  "author": "Erica Dominic",
+  "license": "ISC",
+  "scripts": {
+    "start": "webpack serve",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EricaHD/401kMatch"
+  },
+  "homepage": "https://github.com/EricaHD/401kMatch#readme",
+  "bugs": {
+    "url": "https://github.com/EricaHD/401kMatch/issues"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.1.0",
+    "@babel/core": "^7.1.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.2",
+    "css-loader": "^6.10.0",
+    "file-loader": "^6.2.0",
+    "style-loader": "^0.23.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.4.5",
+    "url-loader": "^4.1.1",
+    "webpack": "^5.90.3",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.0.2"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.15.13",
+    "@mui/material": "^5.15.12",
+    "@mui/x-charts": "^6.19.5",
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0"
+  }
+}
