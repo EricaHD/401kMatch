@@ -8,7 +8,7 @@ export default function AgeCheckbox({ checked, onChange }) {
     <FormControlLabel
       checked={checked}
       control={<Checkbox onChange={onChange} />}
-      label="Check this box if you will be 50 or older by the end of the calendar year."
+      label="Check this box if you will be 50 or older by the end of the calendar year"
       labelPlacement="end"
       sx={styles.ageCheckbox}
     />
