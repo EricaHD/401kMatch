@@ -1,7 +1,7 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import styles from './styles/Header';
+import styles from './styles/Header.ts';
 
 export default function Header() {
   return (

@@ -7,7 +7,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import ContributionPercentageInput from './ContributionPercentageInput.jsx';
-import styles from './styles/AutopopulateContributionPercentage';
+import styles from './styles/AutopopulateContributionPercentage.ts';
 
 const DEFAULT_RETIREMENT_CONTRIBUTION = 10;
 

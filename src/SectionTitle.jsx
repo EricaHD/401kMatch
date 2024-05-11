@@ -1,6 +1,6 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
-import styles from './styles/SectionTitle';
+import styles from './styles/SectionTitle.ts';
 
 export default function SectionTitle({ title, marginTop, marginBottom }) {
   return (

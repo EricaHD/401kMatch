@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import SectionTitle from './SectionTitle.jsx';
 import Collapsible from './Collapsible.jsx';
-import styles from './styles/Footer';
+import styles from './styles/Footer.ts';
 
 export default function Footer() {
 

@@ -2,7 +2,7 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { currencyFormatter } from './utils/monetaryCalculations';
-import styles from './styles/CumulativeContributionInfo';
+import styles from './styles/CumulativeContributionInfo.ts';
 
 export default function CumulativeContributionInfo({ cumulativeContribution, maximumContribution, individualOrCompany }) {
   return (

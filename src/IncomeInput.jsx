@@ -4,7 +4,7 @@ import Stack from '@mui/material/Stack';
 import FormControl from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
 import OutlinedInput from '@mui/material/OutlinedInput';
-import styles from './styles/IncomeInput';
+import styles from './styles/IncomeInput.ts';
 
 export default function IncomeInput({ label, value, onChange }) {
   const [inputValue, setInputValue] = React.useState(0);

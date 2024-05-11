@@ -7,7 +7,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import IncomeInput from './IncomeInput.jsx';
-import styles from './styles/AutopopulateIncome';
+import styles from './styles/AutopopulateIncome.ts';
 
 const DEFAULT_PRE_MARCH_ANNUAL_SALARY = 6250 * 24;
 const DEFAULT_POST_MARCH_ANNUAL_SALARY = 6500 * 24;

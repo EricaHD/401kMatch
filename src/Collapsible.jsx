@@ -4,7 +4,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Typography from '@mui/material/Typography';
-import styles from './styles/Collapsible';
+import styles from './styles/Collapsible.ts';
 
 export default function Collapsible({ title, body }) {
   return (

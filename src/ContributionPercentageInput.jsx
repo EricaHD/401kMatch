@@ -6,7 +6,7 @@ import Stack from '@mui/material/Stack';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 import { blue, grey } from './utils/colors';
-import styles from './styles/ContributionPercentageInput';
+import styles from './styles/ContributionPercentageInput.ts';
 
 const NumberInput = React.forwardRef(function CustomNumberInput(props, ref) {
   return (

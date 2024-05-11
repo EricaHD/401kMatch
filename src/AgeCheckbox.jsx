@@ -1,7 +1,7 @@
 import React from 'react';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import styles from './styles/AgeCheckbox';
+import styles from './styles/AgeCheckbox.ts';
 
 export default function AgeCheckbox({ checked, onChange }) {
   return (

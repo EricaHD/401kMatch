@@ -10,7 +10,7 @@ import Paper from '@mui/material/Paper';
 import IncomeInput from './IncomeInput.jsx';
 import ContributionPercentageInput from './ContributionPercentageInput.jsx';
 import { currencyFormatter, roundToNearestCent } from './utils/monetaryCalculations';
-import styles from './styles/SummaryTable';
+import styles from './styles/SummaryTable.ts';
 
 export default function SummaryTable({
   paychecks,

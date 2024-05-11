@@ -12,7 +12,7 @@ import AutopopulateContributionPercentage from './AutopopulateContributionPercen
 import { roundToNearestCent, currencyFormatter, twoPercentOfIncome } from './utils/monetaryCalculations';
 import { pastelColors } from './utils/colors';
 import { useLocalStorageState } from './utils/localStorage';
-import styles from './styles/Content';
+import styles from './styles/Content.ts';
 
 const UNDER_FIFTY_MAX_CONTRIBUTION = 23000;
 const FIFTY_OR_OLDER_MAX_CONTRIBUTION = 30500;
