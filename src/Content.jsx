@@ -6,7 +6,7 @@ import AgeCheckbox from './AgeCheckbox.tsx';
 import CumulativeContributionInfo from './CumulativeContributionInfo.jsx';
 import Chart from './Chart.tsx';
 import SummaryTable from './SummaryTable.jsx';
-import SectionTitle from './SectionTitle.jsx';
+import SectionTitle from './SectionTitle';
 import AutopopulateIncome from './AutopopulateIncome.jsx';
 import AutopopulateContributionPercentage from './AutopopulateContributionPercentage.jsx';
 import { roundToNearestCent, currencyFormatter, twoPercentOfIncome } from './utils/monetaryCalculations';
