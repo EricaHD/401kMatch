@@ -6,11 +6,11 @@ import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import SectionTitle from './SectionTitle.jsx';
 import Collapsible from './Collapsible.jsx';
-import styles from './styles/Footer.ts';
+import styles from './styles/Footer';
 
-export default function Footer() {
+const Footer = () => {
 
-  const createBulletPoints = (bulletPointArray) => {
+  const createBulletPoints = (bulletPointArray: string[]): React.ReactNode => {
     return (
       <List sx={styles.bulletList}>
         {bulletPointArray.map((bulletPoint, idx) => (
@@ -59,3 +59,5 @@ export default function Footer() {
     </Box>
   );
 }
+
+export default Footer;

@@ -1,9 +1,9 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import styles from './styles/Header.ts';
+import styles from './styles/Header';
 
-export default function Header() {
+const Header = () => {
   return (
     <Box sx={styles.headerBackground}>
       <Typography variant="h3">
@@ -15,3 +15,5 @@ export default function Header() {
     </Box>
   );
 }
+
+export default Header;
