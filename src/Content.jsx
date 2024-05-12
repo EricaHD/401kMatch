@@ -2,7 +2,7 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import AgeCheckbox from './AgeCheckbox.jsx';
+import AgeCheckbox from './AgeCheckbox.tsx';
 import CumulativeContributionInfo from './CumulativeContributionInfo.jsx';
 import Chart from './Chart.tsx';
 import SummaryTable from './SummaryTable.jsx';

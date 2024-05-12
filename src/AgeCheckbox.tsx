@@ -1,9 +1,14 @@
 import React from 'react';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import styles from './styles/AgeCheckbox.ts';
+import styles from './styles/AgeCheckbox';
 
-export default function AgeCheckbox({ checked, onChange }) {
+interface Props {
+  checked: boolean;
+  onChange: (event: React.SyntheticEvent) => void;
+}
+
+const AgeCheckbox = ({ checked, onChange }: Props) => {
   return (
     <FormControlLabel
       checked={checked}
@@ -14,3 +19,5 @@ export default function AgeCheckbox({ checked, onChange }) {
     />
   );
 }
+
+export default AgeCheckbox;
