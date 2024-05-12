@@ -4,9 +4,14 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Typography from '@mui/material/Typography';
-import styles from './styles/Collapsible.ts';
+import styles from './styles/Collapsible';
 
-export default function Collapsible({ title, body }) {
+interface Props {
+  title: string;
+  body: React.ReactNode;
+}
+
+const Collapsible = ({ title, body }: Props) => {
   return (
     <Accordion sx={styles.accordian}>
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
@@ -20,3 +25,5 @@ export default function Collapsible({ title, body }) {
     </Accordion>
   );
 }
+
+export default Collapsible;

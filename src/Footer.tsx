@@ -4,8 +4,8 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
-import SectionTitle from './SectionTitle.jsx';
-import Collapsible from './Collapsible.jsx';
+import SectionTitle from './SectionTitle';
+import Collapsible from './Collapsible';
 import styles from './styles/Footer';
 
 const Footer = () => {
