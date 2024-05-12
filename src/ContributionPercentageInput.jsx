@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
-import { blue, grey } from './utils/colors';
+import { blue, grey } from './utils/colors.ts';
 import styles from './styles/ContributionPercentageInput.ts';
 
 const NumberInput = React.forwardRef(function CustomNumberInput(props, ref) {

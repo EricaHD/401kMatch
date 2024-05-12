@@ -10,7 +10,7 @@ import SectionTitle from './SectionTitle.jsx';
 import AutopopulateIncome from './AutopopulateIncome.jsx';
 import AutopopulateContributionPercentage from './AutopopulateContributionPercentage.jsx';
 import { roundToNearestCent, currencyFormatter, twoPercentOfIncome } from './utils/monetaryCalculations';
-import { pastelColors } from './utils/colors';
+import { pastelColors } from './utils/colors.ts';
 import { useLocalStorageState } from './utils/localStorage';
 import styles from './styles/Content.ts';
 
