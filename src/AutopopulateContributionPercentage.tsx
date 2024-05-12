@@ -6,12 +6,16 @@ import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
-import ContributionPercentageInput from './ContributionPercentageInput.jsx';
-import styles from './styles/AutopopulateContributionPercentage.ts';
+import ContributionPercentageInput from './ContributionPercentageInput';
+import styles from './styles/AutopopulateContributionPercentage';
 
 const DEFAULT_RETIREMENT_CONTRIBUTION = 10;
 
-export default function AutopopulateContributionPercentage({ autopopulateContributionPercentage }) {
+interface Props {
+  autopopulateContributionPercentage: (retirementContribution: number) => void;
+}
+
+const AutopopulateContributionPercentage = ({ autopopulateContributionPercentage }: Props) => {
   const [open, setOpen] = React.useState(false);
   const [retirementContribution, setRetirementContribution] = React.useState(DEFAULT_RETIREMENT_CONTRIBUTION);
 
@@ -19,7 +23,7 @@ export default function AutopopulateContributionPercentage({ autopopulateContrib
     setOpen(true);
   };
 
-  const onSubmit = (retirementContribution) => {
+  const onSubmit = (retirementContribution: number) => {
     setOpen(false);
     autopopulateContributionPercentage(retirementContribution);
   };
@@ -38,7 +42,7 @@ export default function AutopopulateContributionPercentage({ autopopulateContrib
         <DialogContent dividers>
           <Stack direction="row" spacing={5} alignItems="center" justifyContent="space-between">
             <Typography variant="body1">Retirement contribution percentage:</Typography>
-            <ContributionPercentageInput value={retirementContribution} onChange={(event, val) => setRetirementContribution(val)} />
+            <ContributionPercentageInput value={retirementContribution} onChange={(event: React.SyntheticEvent, val: number) => setRetirementContribution(val)} />
           </Stack>
           <br />
           <Typography variant="body1">
@@ -57,3 +61,5 @@ export default function AutopopulateContributionPercentage({ autopopulateContrib
     </div>
   );
 }
+
+export default AutopopulateContributionPercentage;

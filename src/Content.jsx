@@ -8,7 +8,7 @@ import Chart from './Chart.tsx';
 import SummaryTable from './SummaryTable.jsx';
 import SectionTitle from './SectionTitle';
 import AutopopulateIncome from './AutopopulateIncome.jsx';
-import AutopopulateContributionPercentage from './AutopopulateContributionPercentage.jsx';
+import AutopopulateContributionPercentage from './AutopopulateContributionPercentage';
 import { roundToNearestCent, currencyFormatter, twoPercentOfIncome } from './utils/monetaryCalculations';
 import { pastelColors } from './utils/colors.ts';
 import { useLocalStorageState } from './utils/localStorage';
