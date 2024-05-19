@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import AgeCheckbox from './AgeCheckbox.tsx';
-import CumulativeContributionInfo from './CumulativeContributionInfo.jsx';
+import CumulativeContributionInfo from './CumulativeContributionInfo';
 import Chart from './Chart.tsx';
 import SummaryTable from './SummaryTable.jsx';
 import SectionTitle from './SectionTitle';

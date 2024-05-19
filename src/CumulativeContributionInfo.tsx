@@ -2,9 +2,15 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { currencyFormatter } from './utils/monetaryCalculations';
-import styles from './styles/CumulativeContributionInfo.ts';
+import styles from './styles/CumulativeContributionInfo';
 
-export default function CumulativeContributionInfo({ cumulativeContribution, maximumContribution, individualOrCompany }) {
+interface Props {
+  cumulativeContribution: number;
+  maximumContribution: number;
+  individualOrCompany: string;
+}
+
+const CumulativeContributionInfo = ({ cumulativeContribution, maximumContribution, individualOrCompany }: Props) => {
   return (
     <Box sx={styles.contributionInfo}>
       <Typography variant="h5">
@@ -19,3 +25,5 @@ export default function CumulativeContributionInfo({ cumulativeContribution, max
     </Box>
   );
 }
+
+export default CumulativeContributionInfo;
