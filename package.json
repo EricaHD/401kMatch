@@ -5,8 +5,8 @@
   "author": "Erica Dominic",
   "license": "ISC",
   "scripts": {
-    "start": "webpack serve",
-    "build": "webpack"
+    "start": "webpack serve --config webpack.config.ts",
+    "build": "webpack --config webpack.config.ts"
   },
   "repository": {
     "type": "git",
@@ -21,16 +21,18 @@
     "@babel/core": "^7.1.0",
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
+    "@types/node": "^20.12.12",
     "babel-loader": "^8.0.2",
     "css-loader": "^6.10.0",
     "file-loader": "^6.2.0",
     "style-loader": "^0.23.0",
     "ts-loader": "^9.5.1",
+    "ts-node": "^10.9.2",
     "typescript": "^5.4.5",
     "url-loader": "^4.1.1",
     "webpack": "^5.90.3",
     "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^5.0.2"
+    "webpack-dev-server": "^5.0.4"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
