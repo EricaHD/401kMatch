@@ -43,7 +43,7 @@ export default function SummaryTable({
                 <Typography variant="body1"><b>{paycheck}</b></Typography>
               </TableCell>
               <TableCell component="th" scope="row" key={`${paycheck}-income`}>
-                <IncomeInput value={income[idx]} onChange={(event, val) => onChangeIncome(idx, event, val)} />
+                <IncomeInput value={income[idx]} onChange={(event, val) => onChangeIncome(idx, val)} />
               </TableCell>
               <TableCell component="th" scope="row" key={`${paycheck}-contrib`}>
                 {idx !== stiIndex &&

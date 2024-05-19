@@ -52,8 +52,8 @@ export default function Content() {
   const [income, setIncome] = useLocalStorageState('local_storage_income', initialIncomeArray);
   const [maxCompanyContribution, setMaxCompanyContribution] = React.useState(twoPercentOfIncome(income, STI_INDEX));
 
-  const onChangeIncome = (idx, event, value) => {
-    const newValue = (value === null) ? 0 : value;
+  const onChangeIncome = (idx, value) => {
+    const newValue = (value === null) ? 0 : Number(value);
     const newIncome = Object.assign([...income], { [idx]: newValue });
     setIncome(newIncome);
     setMaxCompanyContribution(twoPercentOfIncome(newIncome, STI_INDEX));

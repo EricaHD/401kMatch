@@ -1,12 +1,11 @@
 import React from 'react';
-import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import FormControl from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import styles from './styles/IncomeInput.ts';
 
-export default function IncomeInput({ label, value, onChange }) {
+export default function IncomeInput({ value, onChange }) {
   const [inputValue, setInputValue] = React.useState(0);
 
   const handleInputChange = (event) => {
@@ -29,7 +28,6 @@ export default function IncomeInput({ label, value, onChange }) {
   return (
     <Stack direction="column" sx={styles.incomeInputStack}>
       <FormControl variant="standard" error={isInvalid(inputValue)}>
-        <Typography variant="caption">{label}</Typography>
         <OutlinedInput
           type="number"
           startAdornment="$"
