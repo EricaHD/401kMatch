@@ -2,17 +2,17 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import AgeCheckbox from './AgeCheckbox.tsx';
+import AgeCheckbox from './AgeCheckbox';
 import CumulativeContributionInfo from './CumulativeContributionInfo';
-import Chart from './Chart.tsx';
+import Chart from './Chart';
 import SummaryTable from './SummaryTable';
 import SectionTitle from './SectionTitle';
 import AutopopulateIncome from './AutopopulateIncome';
 import AutopopulateContributionPercentage from './AutopopulateContributionPercentage';
 import { roundToNearestCent, currencyFormatter, twoPercentOfIncome } from './utils/monetaryCalculations';
-import { pastelColors } from './utils/colors.ts';
+import { pastelColors } from './utils/colors';
 import { useLocalStorageState } from './utils/localStorage';
-import styles from './styles/Content.ts';
+import styles from './styles/Content';
 
 const UNDER_FIFTY_MAX_CONTRIBUTION = 23000;
 const FIFTY_OR_OLDER_MAX_CONTRIBUTION = 30500;
@@ -30,7 +30,7 @@ const PAYCHECKS = [
 const STI_INDEX = PAYCHECKS.indexOf(STI_STRING);
 const NUM_PAYCHECKS = PAYCHECKS.length;
 
-export default function Content() {
+const Content = () => {
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // STATE - AGE & MAX CONTRIBUTION                                                                                   //
@@ -38,7 +38,8 @@ export default function Content() {
 
   const [maxIndividualContribution, setMaxIndividualContribution] = useLocalStorageState('local_storage_max_contribution', UNDER_FIFTY_MAX_CONTRIBUTION);
 
-  const onChangeMaxIndividualContribution = (event) => {
+  const onChangeMaxIndividualContribution = (event: React.SyntheticEvent): void => {
+    // @ts-ignore
     const newMaxIndividualContribution = event.target.checked ? FIFTY_OR_OLDER_MAX_CONTRIBUTION : UNDER_FIFTY_MAX_CONTRIBUTION;
     setMaxIndividualContribution(newMaxIndividualContribution);
   }
@@ -52,14 +53,14 @@ export default function Content() {
   const [income, setIncome] = useLocalStorageState('local_storage_income', initialIncomeArray);
   const [maxCompanyContribution, setMaxCompanyContribution] = React.useState(twoPercentOfIncome(income, STI_INDEX));
 
-  const onChangeIncome = (idx, value) => {
+  const onChangeIncome = (idx: number, value: number): void => {
     const newValue = (value === null) ? 0 : value;
     const newIncome = Object.assign([...income], { [idx]: newValue });
     setIncome(newIncome);
     setMaxCompanyContribution(twoPercentOfIncome(newIncome, STI_INDEX));
   }
 
-  const autopopulateIncome = (preMarchAnnualSalary, postMarchAnnualSalary, sti) => {
+  const autopopulateIncome = (preMarchAnnualSalary: number, postMarchAnnualSalary: number, sti: number): void => {
     const newPreMarchAnnualSalary = (preMarchAnnualSalary === null) ? 0 : preMarchAnnualSalary;
     const newPostMarchAnnualSalary = (postMarchAnnualSalary === null) ? 0 : postMarchAnnualSalary;
     const newSti = (sti === null) ? 0 : sti;
@@ -86,7 +87,7 @@ export default function Content() {
   const initialContributionPercentage = Array(NUM_PAYCHECKS).fill(DEFAULT_RETIREMENT_CONTRIBUTION);
   const [contributionPercentage, setContributionPercentage] = useLocalStorageState('local_storage_contribution_percentage', initialContributionPercentage);
 
-  const onChangeContributionPercentage = (idx, value) => {
+  const onChangeContributionPercentage = (idx: number, value: number): void => {
     const newValue = (value === null) ? 0 : value;
     // Adjusting Mar #1 retirement contribution percentage should also adjust STI contribution percentage
     const newContributionPercentage = (idx === STI_INDEX + 1)
@@ -95,7 +96,7 @@ export default function Content() {
     setContributionPercentage(newContributionPercentage);
   }
 
-  const autopopulateContributionPercentage = (retirementContribution) => {
+  const autopopulateContributionPercentage = (retirementContribution: number): void => {
     const newRetirementContribution = (retirementContribution === null) ? 0 : retirementContribution;
     const newContributionPercentage = Array(NUM_PAYCHECKS).fill(newRetirementContribution);
     setContributionPercentage(newContributionPercentage);
@@ -158,7 +159,9 @@ export default function Content() {
     }
 
     // State setters
+    // @ts-ignore
     setIndividualSeries(newIndividualSeries);
+    // @ts-ignore
     setCompanySeries(newCompanySeries);
     setCumulativeIndividualContribution(newCumulativeIndividualContribution);
     setCumulativeCompanyContribution(newCumulativeCompanyContribution);
@@ -243,3 +246,5 @@ export default function Content() {
     </Stack>
   );
 }
+
+export default Content;
