@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import AgeCheckbox from './AgeCheckbox.tsx';
 import CumulativeContributionInfo from './CumulativeContributionInfo';
 import Chart from './Chart.tsx';
-import SummaryTable from './SummaryTable.jsx';
+import SummaryTable from './SummaryTable';
 import SectionTitle from './SectionTitle';
 import AutopopulateIncome from './AutopopulateIncome';
 import AutopopulateContributionPercentage from './AutopopulateContributionPercentage';
@@ -86,7 +86,7 @@ export default function Content() {
   const initialContributionPercentage = Array(NUM_PAYCHECKS).fill(DEFAULT_RETIREMENT_CONTRIBUTION);
   const [contributionPercentage, setContributionPercentage] = useLocalStorageState('local_storage_contribution_percentage', initialContributionPercentage);
 
-  const onChangeContributionPercentage = (idx, event, value) => {
+  const onChangeContributionPercentage = (idx, value) => {
     const newValue = (value === null) ? 0 : value;
     // Adjusting Mar #1 retirement contribution percentage should also adjust STI contribution percentage
     const newContributionPercentage = (idx === STI_INDEX + 1)

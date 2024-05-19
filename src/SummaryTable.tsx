@@ -10,9 +10,20 @@ import Paper from '@mui/material/Paper';
 import IncomeInput from './IncomeInput';
 import ContributionPercentageInput from './ContributionPercentageInput';
 import { currencyFormatter, roundToNearestCent } from './utils/monetaryCalculations';
-import styles from './styles/SummaryTable.ts';
+import styles from './styles/SummaryTable';
 
-export default function SummaryTable({
+interface Props {
+  paychecks: string[];
+  income: number[];
+  onChangeIncome: (idx: number, value: number) => void;
+  contributionPercentage: number[];
+  onChangeContributionPercentage: (idx: number, value: number) => void;
+  individualContributions: number[];
+  companyContributions: number[];
+  stiIndex: number;
+}
+
+const SummaryTable = ({
   paychecks,
   income,
   onChangeIncome,
@@ -21,7 +32,7 @@ export default function SummaryTable({
   individualContributions,
   companyContributions,
   stiIndex,
-}) {
+}: Props) => {
   return (
     <TableContainer component={Paper} sx={styles.tableContainer}>
       <Table size="small">
@@ -49,7 +60,7 @@ export default function SummaryTable({
                 {idx !== stiIndex &&
                   <ContributionPercentageInput
                     value={contributionPercentage[idx]}
-                    onChange={(event, val) => onChangeContributionPercentage(idx, event, val)}
+                    onChange={(event, val) => onChangeContributionPercentage(idx, val)}
                   />
                 }
                 {idx === stiIndex &&
@@ -83,3 +94,5 @@ export default function SummaryTable({
     </TableContainer>
   );
 }
+
+export default SummaryTable;
