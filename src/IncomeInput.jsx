@@ -9,8 +9,9 @@ export default function IncomeInput({ value, onChange }) {
   const [inputValue, setInputValue] = React.useState(0);
 
   const handleInputChange = (event) => {
-    setInputValue(event.target.value);
-    onChange(event, event.target.value);
+    const value = Number(event.target.value);
+    setInputValue(value);
+    onChange(value);
   };
 
   const isNegative = (value) => {

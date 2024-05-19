@@ -53,7 +53,7 @@ export default function Content() {
   const [maxCompanyContribution, setMaxCompanyContribution] = React.useState(twoPercentOfIncome(income, STI_INDEX));
 
   const onChangeIncome = (idx, value) => {
-    const newValue = (value === null) ? 0 : Number(value);
+    const newValue = (value === null) ? 0 : value;
     const newIncome = Object.assign([...income], { [idx]: newValue });
     setIncome(newIncome);
     setMaxCompanyContribution(twoPercentOfIncome(newIncome, STI_INDEX));
