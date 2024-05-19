@@ -6,7 +6,7 @@ module.exports = {
 
   // Where webpack looks to start building the bundle
   entry: {
-    main: path.resolve(__dirname, './src/index.js'),
+    main: path.resolve(__dirname, './src/index.tsx'),
   },
 
   // Where webpack outputs the assets and bundles
