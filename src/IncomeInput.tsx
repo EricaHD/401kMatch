@@ -3,26 +3,32 @@ import Stack from '@mui/material/Stack';
 import FormControl from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
 import OutlinedInput from '@mui/material/OutlinedInput';
-import styles from './styles/IncomeInput.ts';
+import styles from './styles/IncomeInput';
 
-export default function IncomeInput({ value, onChange }) {
+interface Props {
+  value: number;
+  onChange: (value: number) => void;
+}
+
+const IncomeInput = ({ value, onChange }: Props) => {
   const [inputValue, setInputValue] = React.useState(0);
 
-  const handleInputChange = (event) => {
+  const handleInputChange = (event: React.ChangeEvent): void => {
+    // @ts-ignore
     const value = Number(event.target.value);
     setInputValue(value);
     onChange(value);
   };
 
-  const isNegative = (value) => {
+  const isNegative = (value: number): boolean => {
     return value < 0;
   }
 
-  const hasMoreThanTwoDecimalPlaces = (value) => {
+  const hasMoreThanTwoDecimalPlaces = (value: number): boolean => {
     return (value * 100) % 1 !== 0;
   }
 
-  const isInvalid = (value) => {
+  const isInvalid = (value: number): boolean => {
     return isNegative(value) || hasMoreThanTwoDecimalPlaces(value);
   };
 
@@ -42,3 +48,5 @@ export default function IncomeInput({ value, onChange }) {
     </Stack>
   );
 }
+
+export default IncomeInput;

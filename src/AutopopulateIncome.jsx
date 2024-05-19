@@ -6,7 +6,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
-import IncomeInput from './IncomeInput.jsx';
+import IncomeInput from './IncomeInput';
 import styles from './styles/AutopopulateIncome.ts';
 
 const DEFAULT_PRE_MARCH_ANNUAL_SALARY = 6250 * 24;
@@ -52,7 +52,7 @@ export default function AutopopulateIncome({ autopopulateIncome }) {
           <br />
           <Stack direction="row" spacing={5} alignItems="center" justifyContent="space-between">
             <Typography variant="body1">STI (paid out in mid-March):</Typography>
-            <IncomeInput value={sti} onChange={(val) => setSti(Number(val))} />
+            <IncomeInput value={sti} onChange={(val) => setSti(val)} />
           </Stack>
           <br />
           <Typography variant="body1">

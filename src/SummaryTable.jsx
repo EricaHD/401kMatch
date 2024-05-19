@@ -7,7 +7,7 @@ import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import TableBody from '@mui/material/TableBody';
 import Paper from '@mui/material/Paper';
-import IncomeInput from './IncomeInput.jsx';
+import IncomeInput from './IncomeInput';
 import ContributionPercentageInput from './ContributionPercentageInput';
 import { currencyFormatter, roundToNearestCent } from './utils/monetaryCalculations';
 import styles from './styles/SummaryTable.ts';
