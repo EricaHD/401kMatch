@@ -52,7 +52,7 @@ export default function AutopopulateIncome({ autopopulateIncome }) {
           <br />
           <Stack direction="row" spacing={5} alignItems="center" justifyContent="space-between">
             <Typography variant="body1">STI (paid out in mid-March):</Typography>
-            <IncomeInput value={sti} onChange={(event, val) => setSti(val)} />
+            <IncomeInput value={sti} onChange={(event, val) => setSti(Number(val))} />
           </Stack>
           <br />
           <Typography variant="body1">
