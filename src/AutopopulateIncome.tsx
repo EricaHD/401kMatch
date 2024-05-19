@@ -7,13 +7,17 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import IncomeInput from './IncomeInput';
-import styles from './styles/AutopopulateIncome.ts';
+import styles from './styles/AutopopulateIncome';
 
 const DEFAULT_PRE_MARCH_ANNUAL_SALARY = 6250 * 24;
 const DEFAULT_POST_MARCH_ANNUAL_SALARY = 6500 * 24;
 const DEFAULT_STI = 17250;
 
-export default function AutopopulateIncome({ autopopulateIncome }) {
+interface Props {
+  autopopulateIncome: (preMarchAnnualSalary: number, postMarchAnnualSalary: number, sti: number) => void;
+}
+
+const AutopopulateIncome = ({ autopopulateIncome }: Props) => {
   const [open, setOpen] = React.useState(false);
   const [preMarchAnnualSalary, setPreMarchAnnualSalary] = React.useState(DEFAULT_PRE_MARCH_ANNUAL_SALARY);
   const [postMarchAnnualSalary, setPostMarchAnnualSalary] = React.useState(DEFAULT_POST_MARCH_ANNUAL_SALARY);
@@ -23,12 +27,12 @@ export default function AutopopulateIncome({ autopopulateIncome }) {
     setOpen(true);
   };
 
-  const onSubmit = (preMarchAnnualSalary, postMarchAnnualSalary, sti) => {
+  const onSubmit = (preMarchAnnualSalary: number, postMarchAnnualSalary: number, sti: number): void => {
     setOpen(false);
     autopopulateIncome(preMarchAnnualSalary, postMarchAnnualSalary, sti);
   };
 
-  const onCancel = (preMarchAnnualSalary, postMarchAnnualSalary, sti) => {
+  const onCancel = () => {
     setOpen(false);
   };
 
@@ -71,3 +75,5 @@ export default function AutopopulateIncome({ autopopulateIncome }) {
     </div>
   );
 }
+
+export default AutopopulateIncome;

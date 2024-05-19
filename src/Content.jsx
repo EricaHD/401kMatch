@@ -7,7 +7,7 @@ import CumulativeContributionInfo from './CumulativeContributionInfo';
 import Chart from './Chart.tsx';
 import SummaryTable from './SummaryTable.jsx';
 import SectionTitle from './SectionTitle';
-import AutopopulateIncome from './AutopopulateIncome.jsx';
+import AutopopulateIncome from './AutopopulateIncome';
 import AutopopulateContributionPercentage from './AutopopulateContributionPercentage';
 import { roundToNearestCent, currencyFormatter, twoPercentOfIncome } from './utils/monetaryCalculations';
 import { pastelColors } from './utils/colors.ts';
