@@ -1,0 +1,2 @@
+# All .tsx files should be treated as TypeScript
+*.tsx linguist-language=TypeScript
