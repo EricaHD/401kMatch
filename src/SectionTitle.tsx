@@ -14,6 +14,6 @@ const SectionTitle = ({ title, marginTop, marginBottom }: Props) => {
       {title}
     </Typography>
   );
-}
+};
 
 export default SectionTitle;

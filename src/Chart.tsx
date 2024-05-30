@@ -37,6 +37,6 @@ const Chart = ({ xAxisData, series, maximumContribution, maximumContributionLabe
       />
     </ResponsiveChartContainer>
   );
-}
+};
 
 export default Chart;

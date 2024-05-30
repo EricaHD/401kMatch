@@ -22,11 +22,11 @@ const IncomeInput = ({ value, onChange }: Props) => {
 
   const isNegative = (value: number): boolean => {
     return value < 0;
-  }
+  };
 
   const hasMoreThanTwoDecimalPlaces = (value: number): boolean => {
     return (value * 100) % 1 !== 0;
-  }
+  };
 
   const isInvalid = (value: number): boolean => {
     return isNegative(value) || hasMoreThanTwoDecimalPlaces(value);
@@ -43,10 +43,12 @@ const IncomeInput = ({ value, onChange }: Props) => {
           sx={styles.outlinedInput}
         />
         {isNegative(inputValue) && <FormHelperText>Value cannot be negative</FormHelperText>}
-        {hasMoreThanTwoDecimalPlaces(inputValue) && <FormHelperText>Value cannot have more than two decimal places</FormHelperText>}
+        {hasMoreThanTwoDecimalPlaces(inputValue) && (
+          <FormHelperText>Value cannot have more than two decimal places</FormHelperText>
+        )}
       </FormControl>
     </Stack>
   );
-}
+};
 
 export default IncomeInput;

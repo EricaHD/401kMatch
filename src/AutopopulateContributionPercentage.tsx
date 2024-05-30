@@ -35,31 +35,37 @@ const AutopopulateContributionPercentage = ({ autopopulateContributionPercentage
   return (
     <div>
       <Button variant="contained" onClick={onClickButton} sx={styles.button}>
-        Autopopulate<br />retirement contribution
+        Autopopulate
+        <br />
+        retirement contribution
       </Button>
       <Dialog open={open} maxWidth="sm">
         <DialogTitle>Autopopulate Retirement Contribution</DialogTitle>
         <DialogContent dividers>
           <Stack direction="row" spacing={5} alignItems="center" justifyContent="space-between">
             <Typography variant="body1">Retirement contribution percentage:</Typography>
-            <ContributionPercentageInput value={retirementContribution} onChange={(event: React.SyntheticEvent, val: number) => setRetirementContribution(val)} />
+            <ContributionPercentageInput
+              value={retirementContribution}
+              onChange={(event: React.SyntheticEvent, val: number) => setRetirementContribution(val)}
+            />
           </Stack>
           <br />
           <Typography variant="body1">
             <i>
-              This will overwrite the values currently in the "Retirement Contribution" column.
-              If left blank, it will be treated as 0%.
-              You can still edit individual retirement contribution values after autopopulating.
+              This will overwrite the values currently in the "Retirement Contribution" column. If left blank, it will
+              be treated as 0%. You can still edit individual retirement contribution values after autopopulating.
             </i>
           </Typography>
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={onCancel}>Cancel</Button>
+          <Button autoFocus onClick={onCancel}>
+            Cancel
+          </Button>
           <Button onClick={() => onSubmit(retirementContribution)}>Ok</Button>
         </DialogActions>
       </Dialog>
     </div>
   );
-}
+};
 
 export default AutopopulateContributionPercentage;

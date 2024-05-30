@@ -24,25 +24,52 @@ const DEFAULT_RETIREMENT_CONTRIBUTION = 12;
 
 const STI_STRING = 'STI';
 const PAYCHECKS = [
-  "Jan #1", "Jan #2", "Feb #1", "Feb #2", STI_STRING, "Mar #1", "Mar #2", "Apr #1", "Apr #2", "May #1", "May #2", "Jun #1", "Jun #2",
-  "Jul #1", "Jul #2", "Aug #1", "Aug #2", "Sept #1", "Sept #2", "Oct #1", "Oct #2", "Nov #1", "Nov #2", "Dec #1", "Dec #2",
+  'Jan #1',
+  'Jan #2',
+  'Feb #1',
+  'Feb #2',
+  STI_STRING,
+  'Mar #1',
+  'Mar #2',
+  'Apr #1',
+  'Apr #2',
+  'May #1',
+  'May #2',
+  'Jun #1',
+  'Jun #2',
+  'Jul #1',
+  'Jul #2',
+  'Aug #1',
+  'Aug #2',
+  'Sept #1',
+  'Sept #2',
+  'Oct #1',
+  'Oct #2',
+  'Nov #1',
+  'Nov #2',
+  'Dec #1',
+  'Dec #2',
 ];
 const STI_INDEX = PAYCHECKS.indexOf(STI_STRING);
 const NUM_PAYCHECKS = PAYCHECKS.length;
 
 const Content = () => {
-
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // STATE - AGE & MAX CONTRIBUTION                                                                                   //
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  const [maxIndividualContribution, setMaxIndividualContribution] = useLocalStorageState('local_storage_max_contribution', UNDER_FIFTY_MAX_CONTRIBUTION);
+  const [maxIndividualContribution, setMaxIndividualContribution] = useLocalStorageState(
+    'local_storage_max_contribution',
+    UNDER_FIFTY_MAX_CONTRIBUTION
+  );
 
   const onChangeMaxIndividualContribution = (event: React.SyntheticEvent): void => {
     // @ts-ignore
-    const newMaxIndividualContribution = event.target.checked ? FIFTY_OR_OLDER_MAX_CONTRIBUTION : UNDER_FIFTY_MAX_CONTRIBUTION;
+    const newMaxIndividualContribution = event.target.checked
+      ? FIFTY_OR_OLDER_MAX_CONTRIBUTION
+      : UNDER_FIFTY_MAX_CONTRIBUTION;
     setMaxIndividualContribution(newMaxIndividualContribution);
-  }
+  };
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // STATE - INCOME                                                                                                   //
@@ -54,16 +81,16 @@ const Content = () => {
   const [maxCompanyContribution, setMaxCompanyContribution] = React.useState(twoPercentOfIncome(income, STI_INDEX));
 
   const onChangeIncome = (idx: number, value: number): void => {
-    const newValue = (value === null) ? 0 : value;
+    const newValue = value === null ? 0 : value;
     const newIncome = Object.assign([...income], { [idx]: newValue });
     setIncome(newIncome);
     setMaxCompanyContribution(twoPercentOfIncome(newIncome, STI_INDEX));
-  }
+  };
 
   const autopopulateIncome = (preMarchAnnualSalary: number, postMarchAnnualSalary: number, sti: number): void => {
-    const newPreMarchAnnualSalary = (preMarchAnnualSalary === null) ? 0 : preMarchAnnualSalary;
-    const newPostMarchAnnualSalary = (postMarchAnnualSalary === null) ? 0 : postMarchAnnualSalary;
-    const newSti = (sti === null) ? 0 : sti;
+    const newPreMarchAnnualSalary = preMarchAnnualSalary === null ? 0 : preMarchAnnualSalary;
+    const newPostMarchAnnualSalary = postMarchAnnualSalary === null ? 0 : postMarchAnnualSalary;
+    const newSti = sti === null ? 0 : sti;
     const newIncome = Array(NUM_PAYCHECKS).fill(0);
     for (let i = 0; i < newIncome.length; i++) {
       if (i < STI_INDEX) {
@@ -78,29 +105,33 @@ const Content = () => {
     }
     setIncome(newIncome);
     setMaxCompanyContribution(twoPercentOfIncome(newIncome, STI_INDEX));
-  }
+  };
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // STATE - CONTRIBUTION PERCENTAGES                                                                                 //
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   const initialContributionPercentage = Array(NUM_PAYCHECKS).fill(DEFAULT_RETIREMENT_CONTRIBUTION);
-  const [contributionPercentage, setContributionPercentage] = useLocalStorageState('local_storage_contribution_percentage', initialContributionPercentage);
+  const [contributionPercentage, setContributionPercentage] = useLocalStorageState(
+    'local_storage_contribution_percentage',
+    initialContributionPercentage
+  );
 
   const onChangeContributionPercentage = (idx: number, value: number): void => {
-    const newValue = (value === null) ? 0 : value;
+    const newValue = value === null ? 0 : value;
     // Adjusting Mar #1 retirement contribution percentage should also adjust STI contribution percentage
-    const newContributionPercentage = (idx === STI_INDEX + 1)
-      ? Object.assign([...contributionPercentage], { [idx]: newValue }, { [STI_INDEX]: newValue })
-      : Object.assign([...contributionPercentage], { [idx]: newValue });
+    const newContributionPercentage =
+      idx === STI_INDEX + 1
+        ? Object.assign([...contributionPercentage], { [idx]: newValue }, { [STI_INDEX]: newValue })
+        : Object.assign([...contributionPercentage], { [idx]: newValue });
     setContributionPercentage(newContributionPercentage);
-  }
+  };
 
   const autopopulateContributionPercentage = (retirementContribution: number): void => {
-    const newRetirementContribution = (retirementContribution === null) ? 0 : retirementContribution;
+    const newRetirementContribution = retirementContribution === null ? 0 : retirementContribution;
     const newContributionPercentage = Array(NUM_PAYCHECKS).fill(newRetirementContribution);
     setContributionPercentage(newContributionPercentage);
-  }
+  };
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // DATA - CHART DATA                                                                                                //
@@ -119,9 +150,9 @@ const Content = () => {
     const newCompanySeries = [];
     for (let i = 0; i < NUM_PAYCHECKS; i++) {
       // Individual contribution
-      let individualContribution = roundToNearestCent(income[i] * contributionPercentage[i] / 100.0);
+      let individualContribution = roundToNearestCent((income[i] * contributionPercentage[i]) / 100.0);
       if (newCumulativeIndividualContribution + individualContribution > maxIndividualContribution) {
-        const overage = newCumulativeIndividualContribution + individualContribution - maxIndividualContribution
+        const overage = newCumulativeIndividualContribution + individualContribution - maxIndividualContribution;
         individualContribution -= overage;
         // Account for rounding errors
         if (Math.abs(individualContribution) < 0.0000000001) {
@@ -142,7 +173,9 @@ const Content = () => {
       // Series
       newIndividualSeries.push({
         label: PAYCHECKS[i],
-        data: (Array(i).fill(0)).concat(Array(NUM_PAYCHECKS - i).fill(individualContribution)),
+        data: Array(i)
+          .fill(0)
+          .concat(Array(NUM_PAYCHECKS - i).fill(individualContribution)),
         type: 'bar',
         stack: 'IndividualContributionStack',
         valueFormatter: currencyFormatter,
@@ -150,12 +183,14 @@ const Content = () => {
       });
       newCompanySeries.push({
         label: PAYCHECKS[i],
-        data: (Array(i).fill(0)).concat(Array(NUM_PAYCHECKS - i).fill(companyContribution)),
+        data: Array(i)
+          .fill(0)
+          .concat(Array(NUM_PAYCHECKS - i).fill(companyContribution)),
         type: 'bar',
         stack: 'CompanyContributionStack',
         valueFormatter: currencyFormatter,
         color: pastelColors[i % pastelColors.length],
-      })
+      });
     }
 
     // State setters
@@ -173,7 +208,6 @@ const Content = () => {
 
   return (
     <Stack sx={styles.fullWidth}>
-
       <AgeCheckbox
         checked={maxIndividualContribution === FIFTY_OR_OLDER_MAX_CONTRIBUTION}
         onChange={onChangeMaxIndividualContribution}
@@ -196,11 +230,7 @@ const Content = () => {
         />
       </Stack>
 
-      <SectionTitle
-        title={'Individual Contributions'}
-        marginTop={'35px'}
-        marginBottom={'-40px'}
-      />
+      <SectionTitle title={'Individual Contributions'} marginTop={'35px'} marginBottom={'-40px'} />
       <Chart
         xAxisData={PAYCHECKS}
         series={individualSeries}
@@ -208,11 +238,7 @@ const Content = () => {
         maximumContributionLabel={'Maximum Individual Contribution'}
       />
 
-      <SectionTitle
-        title={'Company Contributions'}
-        marginTop={'35px'}
-        marginBottom={'-40px'}
-      />
+      <SectionTitle title={'Company Contributions'} marginTop={'35px'} marginBottom={'-40px'} />
       <Chart
         xAxisData={PAYCHECKS}
         series={companySeries}
@@ -220,13 +246,12 @@ const Content = () => {
         maximumContributionLabel={'Maximum Company Contribution'}
       />
 
-      <SectionTitle
-        title={'Summary of Contributions'}
-        marginTop={'35px'}
-        marginBottom={'5px'}
-      />
+      <SectionTitle title={'Summary of Contributions'} marginTop={'35px'} marginBottom={'5px'} />
       <Typography variant="subtitle1" sx={styles.scrollDownNote}>
-        <i>Protip: after you adjust a value in the table below, click outside the text box to make sure the change takes effect!</i>
+        <i>
+          Protip: after you adjust a value in the table below, click outside the text box to make sure the change takes
+          effect!
+        </i>
       </Typography>
       <Stack direction="row" spacing={5} justifyContent="center" sx={styles.autopopulateButtons}>
         <AutopopulateIncome autopopulateIncome={autopopulateIncome} />
@@ -242,9 +267,8 @@ const Content = () => {
         companyContributions={companySeries.map((elt, idx) => elt['data'][idx])}
         stiIndex={STI_INDEX}
       />
-
     </Stack>
   );
-}
+};
 
 export default Content;

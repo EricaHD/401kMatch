@@ -39,7 +39,9 @@ const AutopopulateIncome = ({ autopopulateIncome }: Props) => {
   return (
     <div>
       <Button variant="contained" onClick={onClickButton} sx={styles.button}>
-        Autopopulate<br />paycheck income
+        Autopopulate
+        <br />
+        paycheck income
       </Button>
       <Dialog open={open} maxWidth="sm">
         <DialogTitle>Autopopulate Paycheck Income</DialogTitle>
@@ -61,19 +63,21 @@ const AutopopulateIncome = ({ autopopulateIncome }: Props) => {
           <br />
           <Typography variant="body1">
             <i>
-              This will overwrite the values currently in the "Paycheck Income" column.
-              Each value left blank will be treated as $0.
-              You can still edit individual income values after autopopulating (e.g. in the case of an off-cycle raise or bonus).
+              This will overwrite the values currently in the "Paycheck Income" column. Each value left blank will be
+              treated as $0. You can still edit individual income values after autopopulating (e.g. in the case of an
+              off-cycle raise or bonus).
             </i>
           </Typography>
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={onCancel}>Cancel</Button>
+          <Button autoFocus onClick={onCancel}>
+            Cancel
+          </Button>
           <Button onClick={() => onSubmit(preMarchAnnualSalary, postMarchAnnualSalary, sti)}>Ok</Button>
         </DialogActions>
       </Dialog>
     </div>
   );
-}
+};
 
 export default AutopopulateIncome;

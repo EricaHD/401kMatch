@@ -40,10 +40,30 @@ const SummaryTable = ({
         <TableHead>
           <TableRow>
             <TableCell />
-            <TableCell><Typography variant="body1"><b>Paycheck Income<br />(annual salary ÷ 24, or STI grant)</b></Typography></TableCell>
-            <TableCell><Typography variant="body1"><b>Retirement Contribution</b></Typography></TableCell>
-            <TableCell sx={styles.centerText}><Typography variant="body1"><b>Individual Contribution</b></Typography></TableCell>
-            <TableCell sx={styles.centerText}><Typography variant="body1"><b>Company Contribution</b></Typography></TableCell>
+            <TableCell>
+              <Typography variant="body1">
+                <b>
+                  Paycheck Income
+                  <br />
+                  (annual salary ÷ 24, or STI grant)
+                </b>
+              </Typography>
+            </TableCell>
+            <TableCell>
+              <Typography variant="body1">
+                <b>Retirement Contribution</b>
+              </Typography>
+            </TableCell>
+            <TableCell sx={styles.centerText}>
+              <Typography variant="body1">
+                <b>Individual Contribution</b>
+              </Typography>
+            </TableCell>
+            <TableCell sx={styles.centerText}>
+              <Typography variant="body1">
+                <b>Company Contribution</b>
+              </Typography>
+            </TableCell>
           </TableRow>
         </TableHead>
         {/* Rows */}
@@ -51,40 +71,36 @@ const SummaryTable = ({
           {paychecks.map((paycheck, idx) => (
             <TableRow sx={styles.tableRow} key={paycheck}>
               <TableCell component="th" scope="row" key={`${paycheck}-paycheck`}>
-                <Typography variant="body1"><b>{paycheck}</b></Typography>
+                <Typography variant="body1">
+                  <b>{paycheck}</b>
+                </Typography>
               </TableCell>
               <TableCell component="th" scope="row" key={`${paycheck}-income`}>
                 <IncomeInput value={income[idx]} onChange={(val) => onChangeIncome(idx, val)} />
               </TableCell>
               <TableCell component="th" scope="row" key={`${paycheck}-contrib`}>
-                {idx !== stiIndex &&
+                {idx !== stiIndex && (
                   <ContributionPercentageInput
                     value={contributionPercentage[idx]}
                     onChange={(event, val) => onChangeContributionPercentage(idx, val)}
                   />
-                }
-                {idx === stiIndex &&
+                )}
+                {idx === stiIndex && (
                   <Typography variant="body2" sx={styles.stiExplanation}>
                     <i>
-                      STI uses the same contribution percentage as the Mar #1 paycheck:
-                      {' '}<b>{contributionPercentage[stiIndex]}%</b>
+                      STI uses the same contribution percentage as the Mar #1 paycheck:{' '}
+                      <b>{contributionPercentage[stiIndex]}%</b>
                     </i>
                   </Typography>
-                }
+                )}
               </TableCell>
               <TableCell component="th" scope="row" key={`${paycheck}-individual`} sx={styles.centerText}>
-                <Typography variant="body1">
-                  {currencyFormatter(individualContributions[idx])}
-                </Typography>
+                <Typography variant="body1">{currencyFormatter(individualContributions[idx])}</Typography>
               </TableCell>
               <TableCell component="th" scope="row" key={`${paycheck}-company`} sx={styles.centerText}>
-                <Typography variant="body1">
-                  {currencyFormatter(companyContributions[idx])}
-                </Typography>
+                <Typography variant="body1">{currencyFormatter(companyContributions[idx])}</Typography>
                 <Typography variant="caption">
-                  <i>
-                    Maximum possible: {currencyFormatter(roundToNearestCent(income[idx] * 0.02))}
-                  </i>
+                  <i>Maximum possible: {currencyFormatter(roundToNearestCent(income[idx] * 0.02))}</i>
                 </Typography>
               </TableCell>
             </TableRow>
@@ -93,6 +109,6 @@ const SummaryTable = ({
       </Table>
     </TableContainer>
   );
-}
+};
 
 export default SummaryTable;

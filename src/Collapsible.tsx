@@ -15,15 +15,11 @@ const Collapsible = ({ title, body }: Props) => {
   return (
     <Accordion sx={styles.accordian}>
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-        <Typography variant="h6">
-          {title}
-        </Typography>
+        <Typography variant="h6">{title}</Typography>
       </AccordionSummary>
-      <AccordionDetails>
-        {body}
-      </AccordionDetails>
+      <AccordionDetails>{body}</AccordionDetails>
     </Accordion>
   );
-}
+};
 
 export default Collapsible;

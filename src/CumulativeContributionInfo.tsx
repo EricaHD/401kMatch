@@ -16,14 +16,13 @@ const CumulativeContributionInfo = ({ cumulativeContribution, maximumContributio
       <Typography variant="h5">
         Total {individualOrCompany.charAt(0).toUpperCase() + individualOrCompany.slice(1)} Contribution
       </Typography>
-      <Typography variant="h3">
-        {currencyFormatter(cumulativeContribution)}
-      </Typography>
+      <Typography variant="h3">{currencyFormatter(cumulativeContribution)}</Typography>
       <Typography variant="caption">
-        Maximum {individualOrCompany.toLowerCase()} contribution for the entire year = {currencyFormatter(maximumContribution)}
+        Maximum {individualOrCompany.toLowerCase()} contribution for the entire year ={' '}
+        {currencyFormatter(maximumContribution)}
       </Typography>
     </Box>
   );
-}
+};
 
 export default CumulativeContributionInfo;

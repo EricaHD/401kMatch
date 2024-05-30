@@ -1,7 +1,7 @@
 name: Build with Webpack and Deploy
 on:
   push:
-    branches: ["main"]
+    branches: ['main']
 # Sets the GITHUB_TOKEN permissions to allow deployment to GitHub Pages
 permissions:
   contents: read

@@ -1,4 +1,4 @@
-const path = require('path')
+const path = require('path');
 
 module.exports = {
   // Set the mode to development or production
@@ -45,7 +45,7 @@ module.exports = {
         test: /\.jsx?$/,
         exclude: /(node_modules|bower_components)/,
         loader: 'babel-loader',
-        options: { presets: ["@babel/env"] }
+        options: { presets: ['@babel/env'] },
       },
       // TypeScript
       {
@@ -56,7 +56,7 @@ module.exports = {
       // CSS
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader']
+        use: ['style-loader', 'css-loader'],
       },
       // Images
       {
@@ -78,5 +78,5 @@ module.exports = {
     compress: true,
     hot: true,
     port: 8080,
-  }
+  },
 };

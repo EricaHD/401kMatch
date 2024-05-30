@@ -7,7 +7,7 @@ export const useLocalStorageState = <T>(key: string, initialValue: T): [T, (newV
     setValue(newValue);
   };
   return [value, setLocalStorage];
-}
+};
 
 const getLocalStorage = <T>(key: string): T | null => {
   const rawValue = localStorage.getItem(key);
@@ -17,4 +17,4 @@ const getLocalStorage = <T>(key: string): T | null => {
   } catch {
     return null;
   }
-}
+};

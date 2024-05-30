@@ -7,7 +7,7 @@ export default {
     width: '95%',
   },
   tableRow: {
-    '&:last-child td, &:last-child th': { border: 0 }
+    '&:last-child td, &:last-child th': { border: 0 },
   },
   stiExplanation: {
     textAlign: 'center',

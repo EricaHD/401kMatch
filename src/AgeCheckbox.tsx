@@ -18,6 +18,6 @@ const AgeCheckbox = ({ checked, onChange }: Props) => {
       sx={styles.ageCheckbox}
     />
   );
-}
+};
 
 export default AgeCheckbox;
