@@ -1,5 +1,4 @@
 import React from 'react';
-import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import AgeCheckbox from './AgeCheckbox';
@@ -9,7 +8,7 @@ import SummaryTable from './SummaryTable';
 import SectionTitle from './SectionTitle';
 import AutopopulateIncome from './AutopopulateIncome';
 import AutopopulateContributionPercentage from './AutopopulateContributionPercentage';
-import { roundToNearestCent, currencyFormatter, twoPercentOfIncome } from './utils/monetaryCalculations';
+import { roundToNearestCent, currencyFormatter, calculatePercentOfIncome } from './utils/monetaryCalculations';
 import { pastelColors } from './utils/colors';
 import { useLocalStorageState } from './utils/localStorage';
 import styles from './styles/Content';
@@ -78,13 +77,15 @@ const Content = () => {
   const initialIncomeArray = Array(NUM_PAYCHECKS).fill(DEFAULT_INCOME);
   initialIncomeArray[STI_INDEX] = DEFAULT_STI;
   const [income, setIncome] = useLocalStorageState('local_storage_income', initialIncomeArray);
-  const [maxCompanyContribution, setMaxCompanyContribution] = React.useState(twoPercentOfIncome(income, STI_INDEX));
+  const [maxCompanyContribution, setMaxCompanyContribution] = React.useState(
+    calculatePercentOfIncome(income, COMPANY_CONTRIBUTION_PERCENTAGE)
+  );
 
   const onChangeIncome = (idx: number, value: number): void => {
     const newValue = value === null ? 0 : value;
     const newIncome = Object.assign([...income], { [idx]: newValue });
     setIncome(newIncome);
-    setMaxCompanyContribution(twoPercentOfIncome(newIncome, STI_INDEX));
+    setMaxCompanyContribution(calculatePercentOfIncome(newIncome, COMPANY_CONTRIBUTION_PERCENTAGE));
   };
 
   const autopopulateIncome = (preMarchAnnualSalary: number, postMarchAnnualSalary: number, sti: number): void => {
@@ -104,7 +105,7 @@ const Content = () => {
       }
     }
     setIncome(newIncome);
-    setMaxCompanyContribution(twoPercentOfIncome(newIncome, STI_INDEX));
+    setMaxCompanyContribution(calculatePercentOfIncome(newIncome, COMPANY_CONTRIBUTION_PERCENTAGE));
   };
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

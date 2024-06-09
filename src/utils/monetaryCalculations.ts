@@ -7,7 +7,7 @@ export const currencyFormatter = new Intl.NumberFormat('en-US', {
   currency: 'USD',
 }).format;
 
-export const twoPercentOfIncome = (incomeArray: number[], stiIdx: number): number => {
+export const calculatePercentOfIncome = (incomeArray: number[], percentage: number): number => {
   // Round per paycheck (instead of once at the end of the calculation)
-  return incomeArray.reduce((accumulator, income) => accumulator + roundToNearestCent(income * 0.02), 0);
+  return incomeArray.reduce((accumulator, income) => accumulator + roundToNearestCent(income * percentage), 0);
 };
