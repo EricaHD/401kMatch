@@ -5,8 +5,8 @@
   "author": "Erica Dominic",
   "license": "ISC",
   "scripts": {
-    "start": "webpack serve --config webpack.config.ts",
-    "build": "webpack --config webpack.config.ts"
+    "start": "webpack serve --open --config webpack.dev.ts",
+    "build": "webpack --config webpack.prod.ts"
   },
   "repository": {
     "type": "git",
@@ -39,7 +39,8 @@
     "url-loader": "^4.1.1",
     "webpack": "^5.90.3",
     "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^5.0.4"
+    "webpack-dev-server": "^5.0.4",
+    "webpack-merge": "^6.0.1"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",

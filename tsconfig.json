@@ -19,5 +19,5 @@
     "skipLibCheck": true,
     "strict": true
   },
-  "include": ["webpack.config.ts"]
+  "include": ["src/**/*", "webpack.common.ts", "webpack.dev.ts", "webpack.prod.ts"]
 }

@@ -1,17 +1,14 @@
-const path = require('path');
+const path_common = require('path');
 
 module.exports = {
-  // Set the mode to development or production
-  mode: 'development',
-
   // Where webpack looks to start building the bundle
   entry: {
-    main: path.resolve(__dirname, './src/index.tsx'),
+    main: path_common.resolve(__dirname, './src/index.tsx'),
   },
 
   // Where webpack outputs the assets and bundles
   output: {
-    path: path.resolve(__dirname, 'dist/'),
+    path: path_common.resolve(__dirname, 'dist/'),
     filename: 'bundle.js',
   },
 
@@ -69,14 +66,5 @@ module.exports = {
         type: 'asset/inline',
       },
     ],
-  },
-
-  // Spin up a server for quick development
-  devServer: {
-    historyApiFallback: true,
-    static: path.resolve(__dirname, './dist'),
-    compress: true,
-    hot: true,
-    port: 8080,
   },
 };
