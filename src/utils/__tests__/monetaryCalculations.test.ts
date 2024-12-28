@@ -1,4 +1,4 @@
-import { roundToNearestCent, currencyFormatter } from '../../src/utils/monetaryCalculations';
+import { roundToNearestCent, currencyFormatter } from '../monetaryCalculations';
 
 test('Round down to the nearest cent', () => {
   expect(roundToNearestCent(100.123)).toBe(100.12);
