@@ -222,12 +222,12 @@ const Content = () => {
         <CumulativeContributionInfo
           cumulativeContribution={cumulativeIndividualContribution}
           maximumContribution={maxIndividualContribution}
-          individualOrCompany={'individual'}
+          employeeOrCompany={'employee'}
         />
         <CumulativeContributionInfo
           cumulativeContribution={cumulativeCompanyContribution}
           maximumContribution={maxCompanyContribution}
-          individualOrCompany={'company'}
+          employeeOrCompany={'company'}
         />
       </Stack>
 
