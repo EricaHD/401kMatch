@@ -23,11 +23,6 @@ export const grey = {
   900: '#1C2025',
 };
 
-export const pastelColors = [
-  '#f2c6de', // red
-  '#f7d9c4', // orange
-  '#faedcb', // yellow
-  '#c9e4de', // green
-  '#c6def1', // blue
-  '#dbcdf0', // purple
-];
+export const PAY_PERIOD_COLOR = '#6BBAA7';
+export const CUMULATIVE_COLOR = '#8676C4';
+export const UNUSED_MATCH_COLOR = '#EFEFEF';

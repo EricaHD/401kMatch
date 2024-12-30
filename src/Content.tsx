@@ -8,8 +8,7 @@ import SummaryTable from './SummaryTable';
 import SectionTitle from './SectionTitle';
 import AutopopulateIncome from './AutopopulateIncome';
 import AutopopulateContributionPercentage from './AutopopulateContributionPercentage';
-import { roundToNearestCent, currencyFormatter, calculatePercentOfIncome } from './utils/monetaryCalculations';
-import { pastelColors } from './utils/colors';
+import { roundToNearestCent, calculatePercentOfIncome } from './utils/monetaryCalculations';
 import { useLocalStorageState } from './utils/localStorage';
 import styles from './styles/Content';
 
@@ -140,6 +139,7 @@ const Content = () => {
 
   const [employeeSeries, setEmployeeSeries] = React.useState([]);
   const [companySeries, setCompanySeries] = React.useState([]);
+  const [unusedMatchSeries, setUnusedMatchSeries] = React.useState([]);
   const [cumulativeEmployeeContribution, setCumulativeEmployeeContribution] = React.useState(0);
   const [cumulativeCompanyContribution, setCumulativeCompanyContribution] = React.useState(0);
 
@@ -149,6 +149,7 @@ const Content = () => {
 
     const newEmployeeSeries = [];
     const newCompanySeries = [];
+    const newUnusedMatchSeries = [];
     for (let i = 0; i < NUM_PAYCHECKS; i++) {
       // Employee contribution
       let employeeContribution = roundToNearestCent((income[i] * contributionPercentage[i]) / 100.0);
@@ -162,36 +163,18 @@ const Content = () => {
       }
 
       // Company contribution
-      let companyContribution = roundToNearestCent(income[i] * 0.02);
-      if (companyContribution > employeeContribution) {
-        companyContribution = employeeContribution;
-      }
+      const possibleCompanyContribution = roundToNearestCent(income[i] * 0.02);
+      const companyContribution = Math.min(possibleCompanyContribution, employeeContribution);
+      const unusedCompanyContribution = possibleCompanyContribution - companyContribution;
 
       // Update cumulative contributions
       newCumulativeEmployeeContribution += employeeContribution;
       newCumulativeCompanyContribution += companyContribution;
 
       // Series
-      newEmployeeSeries.push({
-        label: PAYCHECKS[i],
-        data: Array(i)
-          .fill(0)
-          .concat(Array(NUM_PAYCHECKS - i).fill(employeeContribution)),
-        type: 'bar',
-        stack: 'EmployeeContributionStack',
-        valueFormatter: currencyFormatter,
-        color: pastelColors[i % pastelColors.length],
-      });
-      newCompanySeries.push({
-        label: PAYCHECKS[i],
-        data: Array(i)
-          .fill(0)
-          .concat(Array(NUM_PAYCHECKS - i).fill(companyContribution)),
-        type: 'bar',
-        stack: 'CompanyContributionStack',
-        valueFormatter: currencyFormatter,
-        color: pastelColors[i % pastelColors.length],
-      });
+      newEmployeeSeries.push(employeeContribution);
+      newCompanySeries.push(companyContribution);
+      newUnusedMatchSeries.push(unusedCompanyContribution);
     }
 
     // State setters
@@ -199,6 +182,8 @@ const Content = () => {
     setEmployeeSeries(newEmployeeSeries);
     // @ts-ignore
     setCompanySeries(newCompanySeries);
+    // @ts-ignore
+    setUnusedMatchSeries(newUnusedMatchSeries);
     setCumulativeEmployeeContribution(newCumulativeEmployeeContribution);
     setCumulativeCompanyContribution(newCumulativeCompanyContribution);
   }, [maxEmployeeContribution, income, contributionPercentage]);
@@ -231,18 +216,20 @@ const Content = () => {
         />
       </Stack>
 
-      <SectionTitle title={'Employee Contributions'} marginTop={'35px'} marginBottom={'-40px'} />
+      <SectionTitle title={'Employee Contributions'} marginTop={'35px'} marginBottom={'0px'} />
       <Chart
         xAxisData={PAYCHECKS}
-        series={employeeSeries}
+        contributionData={employeeSeries}
+        unusedMatchData={[]}
         maximumContribution={maxEmployeeContribution}
         maximumContributionLabel={'Maximum Employee Contribution'}
       />
 
-      <SectionTitle title={'Company Contributions'} marginTop={'35px'} marginBottom={'-40px'} />
+      <SectionTitle title={'Company Contributions'} marginTop={'35px'} marginBottom={'0px'} />
       <Chart
         xAxisData={PAYCHECKS}
-        series={companySeries}
+        contributionData={companySeries}
+        unusedMatchData={unusedMatchSeries}
         maximumContribution={maxCompanyContribution}
         maximumContributionLabel={'Maximum Company Contribution'}
       />
@@ -264,8 +251,8 @@ const Content = () => {
         onChangeIncome={onChangeIncome}
         contributionPercentage={contributionPercentage}
         onChangeContributionPercentage={onChangeContributionPercentage}
-        employeeContributions={employeeSeries.map((elt, idx) => elt['data'][idx])}
-        companyContributions={companySeries.map((elt, idx) => elt['data'][idx])}
+        employeeContributions={employeeSeries}
+        companyContributions={companySeries}
         stiIndex={STI_INDEX}
       />
     </Stack>
