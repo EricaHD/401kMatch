@@ -57,17 +57,17 @@ const Content = () => {
   // STATE - AGE & MAX CONTRIBUTION                                                                                   //
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  const [maxIndividualContribution, setMaxIndividualContribution] = useLocalStorageState(
+  const [maxEmployeeContribution, setMaxEmployeeContribution] = useLocalStorageState(
     'local_storage_max_contribution',
     UNDER_FIFTY_MAX_CONTRIBUTION
   );
 
-  const onChangeMaxIndividualContribution = (event: React.SyntheticEvent): void => {
+  const onChangeMaxEmployeeContribution = (event: React.SyntheticEvent): void => {
     // @ts-ignore
-    const newMaxIndividualContribution = event.target.checked
+    const newMaxEmployeeContribution = event.target.checked
       ? FIFTY_OR_OLDER_MAX_CONTRIBUTION
       : UNDER_FIFTY_MAX_CONTRIBUTION;
-    setMaxIndividualContribution(newMaxIndividualContribution);
+    setMaxEmployeeContribution(newMaxEmployeeContribution);
   };
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -138,47 +138,47 @@ const Content = () => {
   // DATA - CHART DATA                                                                                                //
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  const [individualSeries, setIndividualSeries] = React.useState([]);
+  const [employeeSeries, setEmployeeSeries] = React.useState([]);
   const [companySeries, setCompanySeries] = React.useState([]);
-  const [cumulativeIndividualContribution, setCumulativeIndividualContribution] = React.useState(0);
+  const [cumulativeEmployeeContribution, setCumulativeEmployeeContribution] = React.useState(0);
   const [cumulativeCompanyContribution, setCumulativeCompanyContribution] = React.useState(0);
 
   React.useEffect(() => {
-    let newCumulativeIndividualContribution = 0;
+    let newCumulativeEmployeeContribution = 0;
     let newCumulativeCompanyContribution = 0;
 
-    const newIndividualSeries = [];
+    const newEmployeeSeries = [];
     const newCompanySeries = [];
     for (let i = 0; i < NUM_PAYCHECKS; i++) {
-      // Individual contribution
-      let individualContribution = roundToNearestCent((income[i] * contributionPercentage[i]) / 100.0);
-      if (newCumulativeIndividualContribution + individualContribution > maxIndividualContribution) {
-        const overage = newCumulativeIndividualContribution + individualContribution - maxIndividualContribution;
-        individualContribution -= overage;
+      // Employee contribution
+      let employeeContribution = roundToNearestCent((income[i] * contributionPercentage[i]) / 100.0);
+      if (newCumulativeEmployeeContribution + employeeContribution > maxEmployeeContribution) {
+        const overage = newCumulativeEmployeeContribution + employeeContribution - maxEmployeeContribution;
+        employeeContribution -= overage;
         // Account for rounding errors
-        if (Math.abs(individualContribution) < 0.0000000001) {
-          individualContribution = 0;
+        if (Math.abs(employeeContribution) < 0.0000000001) {
+          employeeContribution = 0;
         }
       }
 
       // Company contribution
       let companyContribution = roundToNearestCent(income[i] * 0.02);
-      if (companyContribution > individualContribution) {
-        companyContribution = individualContribution;
+      if (companyContribution > employeeContribution) {
+        companyContribution = employeeContribution;
       }
 
       // Update cumulative contributions
-      newCumulativeIndividualContribution += individualContribution;
+      newCumulativeEmployeeContribution += employeeContribution;
       newCumulativeCompanyContribution += companyContribution;
 
       // Series
-      newIndividualSeries.push({
+      newEmployeeSeries.push({
         label: PAYCHECKS[i],
         data: Array(i)
           .fill(0)
-          .concat(Array(NUM_PAYCHECKS - i).fill(individualContribution)),
+          .concat(Array(NUM_PAYCHECKS - i).fill(employeeContribution)),
         type: 'bar',
-        stack: 'IndividualContributionStack',
+        stack: 'EmployeeContributionStack',
         valueFormatter: currencyFormatter,
         color: pastelColors[i % pastelColors.length],
       });
@@ -196,12 +196,12 @@ const Content = () => {
 
     // State setters
     // @ts-ignore
-    setIndividualSeries(newIndividualSeries);
+    setEmployeeSeries(newEmployeeSeries);
     // @ts-ignore
     setCompanySeries(newCompanySeries);
-    setCumulativeIndividualContribution(newCumulativeIndividualContribution);
+    setCumulativeEmployeeContribution(newCumulativeEmployeeContribution);
     setCumulativeCompanyContribution(newCumulativeCompanyContribution);
-  }, [maxIndividualContribution, income, contributionPercentage]);
+  }, [maxEmployeeContribution, income, contributionPercentage]);
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // RETURN                                                                                                           //
@@ -210,8 +210,8 @@ const Content = () => {
   return (
     <Stack sx={styles.fullWidth}>
       <AgeCheckbox
-        checked={maxIndividualContribution === FIFTY_OR_OLDER_MAX_CONTRIBUTION}
-        onChange={onChangeMaxIndividualContribution}
+        checked={maxEmployeeContribution === FIFTY_OR_OLDER_MAX_CONTRIBUTION}
+        onChange={onChangeMaxEmployeeContribution}
       />
 
       <Typography variant="subtitle1" sx={styles.scrollDownNote}>
@@ -220,8 +220,8 @@ const Content = () => {
 
       <Stack direction="row" spacing={5} justifyContent="center">
         <CumulativeContributionInfo
-          cumulativeContribution={cumulativeIndividualContribution}
-          maximumContribution={maxIndividualContribution}
+          cumulativeContribution={cumulativeEmployeeContribution}
+          maximumContribution={maxEmployeeContribution}
           employeeOrCompany={'employee'}
         />
         <CumulativeContributionInfo
@@ -231,12 +231,12 @@ const Content = () => {
         />
       </Stack>
 
-      <SectionTitle title={'Individual Contributions'} marginTop={'35px'} marginBottom={'-40px'} />
+      <SectionTitle title={'Employee Contributions'} marginTop={'35px'} marginBottom={'-40px'} />
       <Chart
         xAxisData={PAYCHECKS}
-        series={individualSeries}
-        maximumContribution={maxIndividualContribution}
-        maximumContributionLabel={'Maximum Individual Contribution'}
+        series={employeeSeries}
+        maximumContribution={maxEmployeeContribution}
+        maximumContributionLabel={'Maximum Employee Contribution'}
       />
 
       <SectionTitle title={'Company Contributions'} marginTop={'35px'} marginBottom={'-40px'} />
@@ -264,7 +264,7 @@ const Content = () => {
         onChangeIncome={onChangeIncome}
         contributionPercentage={contributionPercentage}
         onChangeContributionPercentage={onChangeContributionPercentage}
-        employeeContributions={individualSeries.map((elt, idx) => elt['data'][idx])}
+        employeeContributions={employeeSeries.map((elt, idx) => elt['data'][idx])}
         companyContributions={companySeries.map((elt, idx) => elt['data'][idx])}
         stiIndex={STI_INDEX}
       />
