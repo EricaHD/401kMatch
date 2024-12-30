@@ -18,7 +18,7 @@ interface Props {
   onChangeIncome: (idx: number, value: number) => void;
   contributionPercentage: number[];
   onChangeContributionPercentage: (idx: number, value: number) => void;
-  individualContributions: number[];
+  employeeContributions: number[];
   companyContributions: number[];
   stiIndex: number;
 }
@@ -29,7 +29,7 @@ const SummaryTable = ({
   onChangeIncome,
   contributionPercentage,
   onChangeContributionPercentage,
-  individualContributions,
+  employeeContributions,
   companyContributions,
   stiIndex,
 }: Props) => {
@@ -56,7 +56,7 @@ const SummaryTable = ({
             </TableCell>
             <TableCell sx={styles.centerText}>
               <Typography variant="body1">
-                <b>Individual Contribution</b>
+                <b>Employee Contribution</b>
               </Typography>
             </TableCell>
             <TableCell sx={styles.centerText}>
@@ -94,8 +94,8 @@ const SummaryTable = ({
                   </Typography>
                 )}
               </TableCell>
-              <TableCell component="th" scope="row" key={`${paycheck}-individual`} sx={styles.centerText}>
-                <Typography variant="body1">{currencyFormatter(individualContributions[idx])}</Typography>
+              <TableCell component="th" scope="row" key={`${paycheck}-employee`} sx={styles.centerText}>
+                <Typography variant="body1">{currencyFormatter(employeeContributions[idx])}</Typography>
               </TableCell>
               <TableCell component="th" scope="row" key={`${paycheck}-company`} sx={styles.centerText}>
                 <Typography variant="body1">{currencyFormatter(companyContributions[idx])}</Typography>

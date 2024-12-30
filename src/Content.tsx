@@ -264,7 +264,7 @@ const Content = () => {
         onChangeIncome={onChangeIncome}
         contributionPercentage={contributionPercentage}
         onChangeContributionPercentage={onChangeContributionPercentage}
-        individualContributions={individualSeries.map((elt, idx) => elt['data'][idx])}
+        employeeContributions={individualSeries.map((elt, idx) => elt['data'][idx])}
         companyContributions={companySeries.map((elt, idx) => elt['data'][idx])}
         stiIndex={STI_INDEX}
       />
