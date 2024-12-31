@@ -116,7 +116,7 @@ const Chart = ({
       <BarPlot />
       <LinePlot />
       <MarkPlot />
-      <ChartsXAxis axisId="paycheck" />
+      <ChartsXAxis axisId="paycheck" tickLabelStyle={{ angle: 65, textAnchor: 'start' }} />
       <ChartsYAxis axisId="contribution" label={PAY_PERIOD_LABEL} />
       <ChartsYAxis axisId="cumulative" position="right" label={CUMULATIVE_LABEL} />
       <ChartsGrid horizontal />
