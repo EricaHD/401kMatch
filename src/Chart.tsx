@@ -5,7 +5,6 @@ import { BarPlot } from '@mui/x-charts/BarChart';
 import { LinePlot, MarkPlot } from '@mui/x-charts/LineChart';
 import { ChartsXAxis } from '@mui/x-charts/ChartsXAxis';
 import { ChartsYAxis } from '@mui/x-charts/ChartsYAxis';
-import { axisClasses } from '@mui/x-charts/ChartsAxis';
 import { ChartsAxisHighlight } from '@mui/x-charts/ChartsAxisHighlight';
 import { ChartsTooltip } from '@mui/x-charts/ChartsTooltip';
 import { ChartsReferenceLine } from '@mui/x-charts/ChartsReferenceLine';
@@ -13,6 +12,7 @@ import { ChartsLegend } from '@mui/x-charts/ChartsLegend';
 import { ChartsGrid } from '@mui/x-charts/ChartsGrid';
 import { currencyFormatter } from './utils/monetaryCalculations';
 import { PAY_PERIOD_COLOR, CUMULATIVE_COLOR, UNUSED_MATCH_COLOR } from './utils/colors';
+import styles from './styles/Chart';
 
 const PAY_PERIOD_LABEL = 'Pay Period Contribution';
 const CUMULATIVE_LABEL = 'Cumulative Contribution';
@@ -80,38 +80,7 @@ const Chart = ({
       series={series}
       height={700}
       margin={{ left: 100, right: 100 }}
-      sx={{
-        [`.${axisClasses.left} .${axisClasses.label}`]: {
-          transform: 'translate(-50px, 0)',
-        },
-        [`.${axisClasses.right} .${axisClasses.label}`]: {
-          transform: 'translate(55px, 0)',
-        },
-        '& .MuiChartsAxis-left .MuiChartsAxis-label': {
-          fill: PAY_PERIOD_COLOR,
-        },
-        '& .MuiChartsAxis-left .MuiChartsAxis-line': {
-          stroke: PAY_PERIOD_COLOR,
-        },
-        '& .MuiChartsAxis-left .MuiChartsAxis-tick': {
-          stroke: PAY_PERIOD_COLOR,
-        },
-        '& .MuiChartsAxis-left .MuiChartsAxis-tickLabel': {
-          fill: PAY_PERIOD_COLOR,
-        },
-        '& .MuiChartsAxis-right .MuiChartsAxis-label': {
-          fill: CUMULATIVE_COLOR,
-        },
-        '& .MuiChartsAxis-right .MuiChartsAxis-line': {
-          stroke: CUMULATIVE_COLOR,
-        },
-        '& .MuiChartsAxis-right .MuiChartsAxis-tick': {
-          stroke: CUMULATIVE_COLOR,
-        },
-        '& .MuiChartsAxis-right .MuiChartsAxis-tickLabel': {
-          fill: CUMULATIVE_COLOR,
-        },
-      }}
+      sx={styles.axisColors}
     >
       <BarPlot />
       <LinePlot />
