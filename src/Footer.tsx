@@ -7,6 +7,7 @@ import Link from '@mui/material/Link';
 import SectionTitle from './SectionTitle';
 import Collapsible from './Collapsible';
 import { COMBINED_MAX_CONTRIBUTION } from './Content';
+import { currencyWithoutCentsFormatter } from './utils/monetaryCalculations';
 import styles from './styles/Footer';
 
 const Footer = () => {
@@ -22,10 +23,11 @@ const Footer = () => {
     );
   };
 
+  const combinedMaxContributionFormatted = currencyWithoutCentsFormatter(COMBINED_MAX_CONTRIBUTION);
   const disclaimers = [
     'I am not a financial advisor; this is not financial advice.',
     'Certain values computed here could be off by 1¢ (depending on how different institutions handle fractions of a cent).',
-    `Employee + company 401k contributions combined should not exceed ${COMBINED_MAX_CONTRIBUTION}. This calculator does not enforce this limit.`,
+    `Employee + company 401k contributions combined should not exceed ${combinedMaxContributionFormatted}. This calculator does not enforce this limit.`,
     'The company has now introduced a true-up feature, but eligibility is contingent on a few factors and the true-up payment will not be delivered immediately. For those reasons, some employees may still be interested in maximizing per-paycheck matching.',
   ];
 
