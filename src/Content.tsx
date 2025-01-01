@@ -1,7 +1,8 @@
 import React from 'react';
+import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import AgeCheckbox from './AgeCheckbox';
+import AgeSelection from './AgeSelection';
 import CumulativeContributionInfo from './CumulativeContributionInfo';
 import Chart from './Chart';
 import SummaryTable from './SummaryTable';
@@ -9,11 +10,13 @@ import SectionTitle from './SectionTitle';
 import AutopopulateIncome from './AutopopulateIncome';
 import AutopopulateContributionPercentage from './AutopopulateContributionPercentage';
 import { roundToNearestCent, calculatePercentOfIncome } from './utils/monetaryCalculations';
-import { useLocalStorageState } from './utils/localStorage';
+import { useLocalStorageState, setLocalStorage } from './utils/localStorage';
 import styles from './styles/Content';
 
-const UNDER_FIFTY_MAX_CONTRIBUTION = 23000;
-const FIFTY_OR_OLDER_MAX_CONTRIBUTION = 30500;
+export const MAX_CONTRIBUTION_UNDER_50 = 23500;
+export const MAX_CONTRIBUTION_FIFTIES_OR_OVER_63 = 31000;
+export const MAX_CONTRIBUTION_BETWEEN_60_AND_63 = 34750;
+export const COMBINED_MAX_CONTRIBUTION = '$70,000';
 const COMPANY_CONTRIBUTION_PERCENTAGE = 0.02;
 
 const DEFAULT_INCOME = 7000;
@@ -56,16 +59,17 @@ const Content = () => {
   // STATE - AGE & MAX CONTRIBUTION                                                                                   //
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+  // Clear legacy local storage keys that are no longer used
+  setLocalStorage('local_storage_max_contribution', null);
+
   const [maxEmployeeContribution, setMaxEmployeeContribution] = useLocalStorageState(
-    'local_storage_max_contribution',
-    UNDER_FIFTY_MAX_CONTRIBUTION
+    'local_storage_max_contribution_2025',
+    MAX_CONTRIBUTION_UNDER_50
   );
 
   const onChangeMaxEmployeeContribution = (event: React.SyntheticEvent): void => {
+    const newMaxEmployeeContribution = parseInt((event.target as HTMLInputElement).value);
     // @ts-ignore
-    const newMaxEmployeeContribution = event.target.checked
-      ? FIFTY_OR_OLDER_MAX_CONTRIBUTION
-      : UNDER_FIFTY_MAX_CONTRIBUTION;
     setMaxEmployeeContribution(newMaxEmployeeContribution);
   };
 
@@ -194,14 +198,15 @@ const Content = () => {
 
   return (
     <Stack sx={styles.fullWidth}>
-      <AgeCheckbox
-        checked={maxEmployeeContribution === FIFTY_OR_OLDER_MAX_CONTRIBUTION}
-        onChange={onChangeMaxEmployeeContribution}
-      />
-
-      <Typography variant="subtitle1" sx={styles.scrollDownNote}>
-        <i>Scroll down to enter income and retirement contribution percentage details!</i>
-      </Typography>
+      <Box sx={styles.scrollDownNote}>
+        <Typography variant="subtitle1">
+          Select your age <b>at the end of the calendar year</b>. This determines the employee contribution limit.
+        </Typography>
+        <AgeSelection defaultValue={maxEmployeeContribution} onChange={onChangeMaxEmployeeContribution} />
+        <Typography variant="subtitle1">
+          Scroll down to enter income and retirement contribution percentage details.
+        </Typography>
+      </Box>
 
       <Stack direction="row" spacing={5} justifyContent="center">
         <CumulativeContributionInfo

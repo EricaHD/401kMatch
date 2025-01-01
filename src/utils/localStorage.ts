@@ -18,3 +18,11 @@ const getLocalStorage = <T>(key: string): T | null => {
     return null;
   }
 };
+
+export const setLocalStorage = <T>(key: string, itemToStore: T) => {
+  if (itemToStore == null) {
+    localStorage.removeItem(key);
+  } else {
+    localStorage.setItem(key, JSON.stringify(itemToStore));
+  }
+};
