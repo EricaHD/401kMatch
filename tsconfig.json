@@ -19,5 +19,5 @@
     "skipLibCheck": true,
     "strict": true
   },
-  "include": ["src/**/*", "webpack.common.ts", "webpack.dev.ts", "webpack.prod.ts"]
+  "include": ["src/**/*", "images/**/*", "webpack.common.ts", "webpack.dev.ts", "webpack.prod.ts"]
 }

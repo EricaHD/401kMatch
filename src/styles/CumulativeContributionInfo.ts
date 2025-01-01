@@ -1,6 +1,6 @@
 export default {
   contributionInfo: {
-    background: 'rgba(134, 118, 196, 0.3)',
+    background: 'rgba(203, 194, 250, 0.75)',
     borderRadius: '10px',
     marginTop: '15px',
     padding: '10px',

@@ -6,8 +6,15 @@ import styles from './styles/Header';
 const Header = () => {
   return (
     <Box sx={styles.headerBackground}>
-      <Typography variant="h3">2024 Retirement Contribution Calculator</Typography>
-      <Typography variant="h6">with a 2% per-paycheck match from your company</Typography>
+      <Typography sx={styles.yearText}>2024</Typography>
+      <Typography sx={styles.titleText}>
+        Retirement
+        <br />
+        Contribution
+        <br />
+        Calculator
+      </Typography>
+      <Typography sx={styles.subtitleText}>with a 2% per-paycheck match from your company</Typography>
     </Box>
   );
 };

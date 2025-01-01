@@ -1,3 +1,5 @@
+export const textColor = '#202020';
+
 export const blue = {
   100: '#DAECFF',
   200: '#B6DAFF',
