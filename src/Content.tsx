@@ -9,7 +9,11 @@ import SummaryTable from './SummaryTable';
 import SectionTitle from './SectionTitle';
 import AutopopulateIncome from './AutopopulateIncome';
 import AutopopulateContributionPercentage from './AutopopulateContributionPercentage';
-import { roundToNearestCent, calculatePercentOfIncome } from './utils/monetaryCalculations';
+import {
+  roundToNearestCent,
+  calculatePercentOfIncome,
+  currencyWithoutCentsFormatter,
+} from './utils/monetaryCalculations';
 import { useLocalStorageState, setLocalStorage } from './utils/localStorage';
 import styles from './styles/Content';
 
@@ -203,6 +207,10 @@ const Content = () => {
           Select your age <b>at the end of the calendar year</b>. This determines the employee contribution limit.
         </Typography>
         <AgeSelection defaultValue={maxEmployeeContribution} onChange={onChangeMaxEmployeeContribution} />
+        <Typography variant="subtitle1">
+          Employee contribution limit: <b>{currencyWithoutCentsFormatter(maxEmployeeContribution)}</b>
+        </Typography>
+        <br />
         <Typography variant="subtitle1">
           Scroll down to enter income and retirement contribution percentage details.
         </Typography>
