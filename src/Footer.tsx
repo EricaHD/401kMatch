@@ -26,6 +26,7 @@ const Footer = () => {
     'I am not a financial advisor; this is not financial advice.',
     'Certain values computed here could be off by 1¢ (depending on how different institutions handle fractions of a cent).',
     `Employee + company 401k contributions combined should not exceed ${COMBINED_MAX_CONTRIBUTION}. This calculator does not enforce this limit.`,
+    'The company has now introduced a true-up feature, but eligibility is contingent on a few factors and the true-up payment will not be delivered immediately. For those reasons, some employees may still be interested in maximizing per-paycheck matching.',
   ];
 
   const fidelity = [
