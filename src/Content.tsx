@@ -203,9 +203,6 @@ const Content = () => {
   return (
     <Stack sx={styles.fullWidth}>
       <Box sx={styles.scrollDownNote}>
-        <Typography variant="subtitle1">
-          Select your age <b>at the end of the calendar year</b>. This determines the employee contribution limit.
-        </Typography>
         <AgeSelection defaultValue={maxEmployeeContribution} onChange={onChangeMaxEmployeeContribution} />
         <Typography variant="subtitle1">
           Employee contribution limit: <b>{currencyWithoutCentsFormatter(maxEmployeeContribution)}</b>
