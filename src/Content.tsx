@@ -17,12 +17,21 @@ import {
 import { useLocalStorageState, setLocalStorage } from './utils/localStorage';
 import styles from './styles/Content';
 
-export const MAX_CONTRIBUTION_UNDER_50 = 23500;
-export const MAX_CONTRIBUTION_FIFTIES_OR_OVER_63 = 31000;
-export const MAX_CONTRIBUTION_BETWEEN_60_AND_63 = 34750;
+export const AGE_CATEGORIES = Object.freeze({
+  UNDER_50: 'UNDER_50',
+  BETWEEN_50_AND_59: 'BETWEEN_50_AND_59',
+  BETWEEN_60_AND_63: 'BETWEEN_60_AND_63',
+  OVER_63: 'OVER_63',
+});
+const AGE_TO_MAX_EMPLOYEE_CONTRIBUTION = {
+  [AGE_CATEGORIES.UNDER_50]: 23500,
+  [AGE_CATEGORIES.BETWEEN_50_AND_59]: 31000,
+  [AGE_CATEGORIES.BETWEEN_60_AND_63]: 34750,
+  [AGE_CATEGORIES.OVER_63]: 31000,
+};
+
 export const COMBINED_MAX_CONTRIBUTION = 70000;
 const COMPANY_CONTRIBUTION_PERCENTAGE = 0.02;
-
 const DEFAULT_INCOME = 7000;
 const DEFAULT_STI = 15000;
 const DEFAULT_RETIREMENT_CONTRIBUTION = 12;
@@ -65,16 +74,17 @@ const Content = () => {
 
   // Clear legacy local storage keys that are no longer used
   setLocalStorage('local_storage_max_contribution', null);
+  setLocalStorage('local_storage_max_contribution_2025', null);
 
-  const [maxEmployeeContribution, setMaxEmployeeContribution] = useLocalStorageState(
-    'local_storage_max_contribution_2025',
-    MAX_CONTRIBUTION_UNDER_50
+  const [ageCategory, setAgeCategory] = useLocalStorageState(
+    'local_storage_age_category_2025',
+    AGE_CATEGORIES.UNDER_50
   );
 
   const onChangeMaxEmployeeContribution = (event: React.SyntheticEvent): void => {
-    const newMaxEmployeeContribution = parseInt((event.target as HTMLInputElement).value);
+    const newAgeCategory = (event.target as HTMLInputElement).value;
     // @ts-ignore
-    setMaxEmployeeContribution(newMaxEmployeeContribution);
+    setAgeCategory(newAgeCategory);
   };
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -161,8 +171,9 @@ const Content = () => {
     for (let i = 0; i < NUM_PAYCHECKS; i++) {
       // Employee contribution
       let employeeContribution = roundToNearestCent((income[i] * contributionPercentage[i]) / 100.0);
-      if (newCumulativeEmployeeContribution + employeeContribution > maxEmployeeContribution) {
-        const overage = newCumulativeEmployeeContribution + employeeContribution - maxEmployeeContribution;
+      if (newCumulativeEmployeeContribution + employeeContribution > AGE_TO_MAX_EMPLOYEE_CONTRIBUTION[ageCategory]) {
+        const overage =
+          newCumulativeEmployeeContribution + employeeContribution - AGE_TO_MAX_EMPLOYEE_CONTRIBUTION[ageCategory];
         employeeContribution -= overage;
         // Account for rounding errors
         if (Math.abs(employeeContribution) < 0.0000000001) {
@@ -194,7 +205,7 @@ const Content = () => {
     setUnusedMatchSeries(newUnusedMatchSeries);
     setCumulativeEmployeeContribution(newCumulativeEmployeeContribution);
     setCumulativeCompanyContribution(newCumulativeCompanyContribution);
-  }, [maxEmployeeContribution, income, contributionPercentage]);
+  }, [ageCategory, income, contributionPercentage]);
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // RETURN                                                                                                           //
@@ -203,9 +214,10 @@ const Content = () => {
   return (
     <Stack sx={styles.fullWidth}>
       <Box sx={styles.scrollDownNote}>
-        <AgeSelection defaultValue={maxEmployeeContribution} onChange={onChangeMaxEmployeeContribution} />
+        <AgeSelection defaultValue={ageCategory} onChange={onChangeMaxEmployeeContribution} />
         <Typography variant="subtitle1">
-          Employee contribution limit: <b>{currencyWithoutCentsFormatter(maxEmployeeContribution)}</b>
+          Employee contribution limit:{' '}
+          <b>{currencyWithoutCentsFormatter(AGE_TO_MAX_EMPLOYEE_CONTRIBUTION[ageCategory])}</b>
         </Typography>
         <br />
         <Typography variant="subtitle1">
@@ -216,7 +228,7 @@ const Content = () => {
       <Stack direction="row" spacing={5} justifyContent="center">
         <CumulativeContributionInfo
           cumulativeContribution={cumulativeEmployeeContribution}
-          maximumContribution={maxEmployeeContribution}
+          maximumContribution={AGE_TO_MAX_EMPLOYEE_CONTRIBUTION[ageCategory]}
           employeeOrCompany={'employee'}
         />
         <CumulativeContributionInfo
@@ -231,7 +243,7 @@ const Content = () => {
         xAxisData={PAYCHECKS}
         contributionData={employeeSeries}
         unusedMatchData={[]}
-        maximumContribution={maxEmployeeContribution}
+        maximumContribution={AGE_TO_MAX_EMPLOYEE_CONTRIBUTION[ageCategory]}
         maximumContributionLabel={'Maximum Employee Contribution'}
       />
 
