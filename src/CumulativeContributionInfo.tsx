@@ -1,6 +1,7 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import { Gauge } from '@mui/x-charts/Gauge';
 import { currencyFormatter } from './utils/monetaryCalculations';
 import styles from './styles/CumulativeContributionInfo';
 
@@ -16,8 +17,18 @@ const CumulativeContributionInfo = ({ cumulativeContribution, maximumContributio
       <Typography variant="h5">
         Total {employeeOrCompany.charAt(0).toUpperCase() + employeeOrCompany.slice(1)} Contribution
       </Typography>
-      <Typography variant="h3">{currencyFormatter(cumulativeContribution)}</Typography>
-      <Typography variant="caption">
+      <Gauge
+        height={300}
+        value={cumulativeContribution}
+        valueMin={0}
+        valueMax={maximumContribution}
+        startAngle={-110}
+        endAngle={110}
+        cornerRadius="25%"
+        text={currencyFormatter(cumulativeContribution)}
+        sx={styles.gauge}
+      />
+      <Typography variant="body1">
         Maximum {employeeOrCompany.toLowerCase()} contribution for the entire year ={' '}
         {currencyFormatter(maximumContribution)}
       </Typography>
