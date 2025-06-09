@@ -18,7 +18,7 @@ const CumulativeContributionInfo = ({ cumulativeContribution, maximumContributio
         Total {employeeOrCompany.charAt(0).toUpperCase() + employeeOrCompany.slice(1)} Contribution
       </Typography>
       <Gauge
-        height={300}
+        height={250}
         value={cumulativeContribution}
         valueMin={0}
         valueMax={maximumContribution}

@@ -225,7 +225,7 @@ const Content = () => {
         </Typography>
       </Box>
 
-      <Stack direction="row" spacing={5} justifyContent="center">
+      <Stack direction="row" spacing={7} justifyContent="center">
         <CumulativeContributionInfo
           cumulativeContribution={cumulativeEmployeeContribution}
           maximumContribution={AGE_TO_MAX_EMPLOYEE_CONTRIBUTION[ageCategory]}

@@ -4,6 +4,7 @@ export default {
     marginTop: '15px',
     padding: '10px',
     textAlign: 'center',
+    width: '330px',
   },
   gauge: {
     [`& .MuiGauge-valueText`]: {
