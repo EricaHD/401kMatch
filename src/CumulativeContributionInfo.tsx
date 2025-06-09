@@ -1,6 +1,7 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import { styled } from '@mui/material/styles';
 import { Gauge } from '@mui/x-charts/Gauge';
 import { currencyFormatter } from './utils/monetaryCalculations';
 import styles from './styles/CumulativeContributionInfo';
@@ -12,8 +13,19 @@ interface Props {
 }
 
 const CumulativeContributionInfo = ({ cumulativeContribution, maximumContribution, employeeOrCompany }: Props) => {
+  const StyledContainer = styled(Box)`
+    ${({ theme }) => `
+      transition: ${theme.transitions.create(['transform'], {
+        duration: theme.transitions.duration.standard,
+      })};
+      &:hover {
+        transform: scale(1.05);
+      }
+    `}
+  `;
+
   return (
-    <Box sx={styles.contributionInfo}>
+    <StyledContainer sx={styles.contributionInfo}>
       <Typography variant="h5">
         Total {employeeOrCompany.charAt(0).toUpperCase() + employeeOrCompany.slice(1)} Contribution
       </Typography>
@@ -32,7 +44,7 @@ const CumulativeContributionInfo = ({ cumulativeContribution, maximumContributio
         Maximum {employeeOrCompany.toLowerCase()} contribution for the entire year ={' '}
         {currencyFormatter(maximumContribution)}
       </Typography>
-    </Box>
+    </StyledContainer>
   );
 };
 
