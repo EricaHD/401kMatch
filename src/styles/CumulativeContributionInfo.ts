@@ -1,3 +1,5 @@
+import { CUMULATIVE_COLOR } from '../utils/colors';
+
 export default {
   contributionInfo: {
     borderRadius: '10px',
@@ -12,7 +14,7 @@ export default {
       fontFamily: 'Roboto,Helvetica,Arial,sans-serif',
     },
     [`& .MuiGauge-valueArc`]: {
-      fill: '#5D44C2',
+      fill: CUMULATIVE_COLOR,
     },
   },
 };
