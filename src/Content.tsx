@@ -24,10 +24,10 @@ export const AGE_CATEGORIES = Object.freeze({
   OVER_63: 'OVER_63',
 });
 const AGE_TO_MAX_EMPLOYEE_CONTRIBUTION = {
-  [AGE_CATEGORIES.UNDER_50]: 23500,
-  [AGE_CATEGORIES.BETWEEN_50_AND_59]: 31000,
-  [AGE_CATEGORIES.BETWEEN_60_AND_63]: 34750,
-  [AGE_CATEGORIES.OVER_63]: 31000,
+  [AGE_CATEGORIES.UNDER_50]: 24500,
+  [AGE_CATEGORIES.BETWEEN_50_AND_59]: 32500,
+  [AGE_CATEGORIES.BETWEEN_60_AND_63]: 35750,
+  [AGE_CATEGORIES.OVER_63]: 32500,
 };
 
 export const COMBINED_MAX_CONTRIBUTION = 70000;
@@ -77,7 +77,7 @@ const Content = () => {
   setLocalStorage('local_storage_max_contribution_2025', null);
 
   const [ageCategory, setAgeCategory] = useLocalStorageState(
-    'local_storage_age_category_2025',
+    'local_storage_age_category_2025', // also used in 2026
     AGE_CATEGORIES.UNDER_50
   );
 
