@@ -5,7 +5,31 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 import { blue, grey } from '../utils/colors';
 
-const NumberInput = React.forwardRef(function CustomNumberInput(props, ref) {
+interface NumberInputProps {
+  endAdornment?: string;
+  [key: string]: any;
+}
+
+const NumberInput = React.forwardRef(function CustomNumberInput(
+  { endAdornment, ...otherProps }: NumberInputProps,
+  ref
+) {
+  const slotProps = {
+    incrementButton: {
+      children: <AddIcon fontSize="small" />,
+      className: 'increment',
+    },
+    decrementButton: {
+      children: <RemoveIcon fontSize="small" />,
+    } as any,
+  };
+
+  if (endAdornment) {
+    (slotProps as any).input = {
+      endAdornment: <InputAdornment>{endAdornment}</InputAdornment>,
+    };
+  }
+
   return (
     // @ts-ignore
     <BaseNumberInput
@@ -15,16 +39,8 @@ const NumberInput = React.forwardRef(function CustomNumberInput(props, ref) {
         incrementButton: StyledButton,
         decrementButton: StyledButton,
       }}
-      slotProps={{
-        incrementButton: {
-          children: <AddIcon fontSize="small" />,
-          className: 'increment',
-        },
-        decrementButton: {
-          children: <RemoveIcon fontSize="small" />,
-        },
-      }}
-      {...props}
+      slotProps={slotProps}
+      {...otherProps}
       ref={ref}
     />
   );
@@ -112,6 +128,19 @@ const StyledButton = styled('button')(
   &.increment {
     order: 1;
   }
+`
+);
+
+const InputAdornment = styled('div')(
+  ({ theme }) => `
+  font-size: 1rem;
+  line-height: 1.5;
+  margin: 8px 10px 8px -25px;
+  display: inline-flex;
+  align-items: left;
+  justify-content: left;
+  grid-row: 1/3;
+  color: ${theme.palette.mode === 'dark' ? grey[500] : grey[700]};
 `
 );
 
