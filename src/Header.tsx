@@ -14,7 +14,6 @@ const Header = () => {
         <br />
         Calculator
       </Typography>
-      <Typography sx={styles.subtitleText}>with a 2% per-paycheck match from your company</Typography>
     </Box>
   );
 };

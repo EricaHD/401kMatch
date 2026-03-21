@@ -9,6 +9,7 @@ import SummaryTable from './SummaryTable';
 import SectionTitle from './SectionTitle';
 import AutopopulateIncome from './AutopopulateIncome';
 import AutopopulateContributionPercentage from './AutopopulateContributionPercentage';
+import ContributionPercentageInput from './ContributionPercentageInput';
 import {
   roundToNearestCent,
   calculatePercentOfIncome,
@@ -31,7 +32,7 @@ const AGE_TO_MAX_EMPLOYEE_CONTRIBUTION = {
 };
 
 export const COMBINED_MAX_CONTRIBUTION = 70000;
-const COMPANY_CONTRIBUTION_PERCENTAGE = 0.02;
+const DEFAULT_COMPANY_CONTRIBUTION_PERCENTAGE = 2;
 const DEFAULT_INCOME = 7000;
 const DEFAULT_STI = 15000;
 const DEFAULT_RETIREMENT_CONTRIBUTION = 12;
@@ -88,6 +89,20 @@ const Content = () => {
   };
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // STATE - COMPANY CONTRIBUTION PERCENTAGE                                                                         //
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  const [companyContributionPercentage, setCompanyContributionPercentage] = useLocalStorageState(
+    'local_storage_company_contribution_percentage',
+    DEFAULT_COMPANY_CONTRIBUTION_PERCENTAGE
+  );
+
+  const onChangeCompanyContributionPercentage = (event: React.SyntheticEvent, val: number): void => {
+    const newValue = val === null ? 0 : val;
+    setCompanyContributionPercentage(newValue);
+  };
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // STATE - INCOME                                                                                                   //
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -95,14 +110,17 @@ const Content = () => {
   initialIncomeArray[STI_INDEX] = DEFAULT_STI;
   const [income, setIncome] = useLocalStorageState('local_storage_income', initialIncomeArray);
   const [maxCompanyContribution, setMaxCompanyContribution] = React.useState(
-    calculatePercentOfIncome(income, COMPANY_CONTRIBUTION_PERCENTAGE)
+    calculatePercentOfIncome(income, companyContributionPercentage / 100)
   );
+
+  React.useEffect(() => {
+    setMaxCompanyContribution(calculatePercentOfIncome(income, companyContributionPercentage / 100));
+  }, [income, companyContributionPercentage]);
 
   const onChangeIncome = (idx: number, value: number): void => {
     const newValue = value === null ? 0 : value;
     const newIncome = Object.assign([...income], { [idx]: newValue });
     setIncome(newIncome);
-    setMaxCompanyContribution(calculatePercentOfIncome(newIncome, COMPANY_CONTRIBUTION_PERCENTAGE));
   };
 
   const autopopulateIncome = (preMarchAnnualSalary: number, postMarchAnnualSalary: number, sti: number): void => {
@@ -122,7 +140,6 @@ const Content = () => {
       }
     }
     setIncome(newIncome);
-    setMaxCompanyContribution(calculatePercentOfIncome(newIncome, COMPANY_CONTRIBUTION_PERCENTAGE));
   };
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -182,7 +199,7 @@ const Content = () => {
       }
 
       // Company contribution
-      const possibleCompanyContribution = roundToNearestCent(income[i] * 0.02);
+      const possibleCompanyContribution = roundToNearestCent(income[i] * (companyContributionPercentage / 100));
       const companyContribution = Math.min(possibleCompanyContribution, employeeContribution);
       const unusedCompanyContribution = possibleCompanyContribution - companyContribution;
 
@@ -205,7 +222,7 @@ const Content = () => {
     setUnusedMatchSeries(newUnusedMatchSeries);
     setCumulativeEmployeeContribution(newCumulativeEmployeeContribution);
     setCumulativeCompanyContribution(newCumulativeCompanyContribution);
-  }, [ageCategory, income, contributionPercentage]);
+  }, [ageCategory, income, contributionPercentage, companyContributionPercentage]);
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // RETURN                                                                                                           //
@@ -214,6 +231,13 @@ const Content = () => {
   return (
     <Stack sx={styles.fullWidth}>
       <Box sx={styles.scrollDownNote}>
+        <Stack direction="row" spacing={3} alignItems="center" marginBottom={'30px'}>
+          <Typography variant="subtitle1">Company match percentage:</Typography>
+          <ContributionPercentageInput
+            value={companyContributionPercentage}
+            onChange={onChangeCompanyContributionPercentage}
+          />
+        </Stack>
         <AgeSelection defaultValue={ageCategory} onChange={onChangeMaxEmployeeContribution} />
         <Typography variant="subtitle1">
           Employee contribution limit:{' '}
@@ -273,6 +297,7 @@ const Content = () => {
         onChangeIncome={onChangeIncome}
         contributionPercentage={contributionPercentage}
         onChangeContributionPercentage={onChangeContributionPercentage}
+        companyContributionPercentage={companyContributionPercentage}
         employeeContributions={employeeSeries}
         companyContributions={companySeries}
         stiIndex={STI_INDEX}

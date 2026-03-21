@@ -18,6 +18,7 @@ interface Props {
   onChangeIncome: (idx: number, value: number) => void;
   contributionPercentage: number[];
   onChangeContributionPercentage: (idx: number, value: number) => void;
+  companyContributionPercentage: number;
   employeeContributions: number[];
   companyContributions: number[];
   stiIndex: number;
@@ -29,6 +30,7 @@ const SummaryTable = ({
   onChangeIncome,
   contributionPercentage,
   onChangeContributionPercentage,
+  companyContributionPercentage,
   employeeContributions,
   companyContributions,
   stiIndex,
@@ -100,7 +102,10 @@ const SummaryTable = ({
               <TableCell component="th" scope="row" key={`${paycheck}-company`} sx={styles.centerText}>
                 <Typography variant="body1">{currencyFormatter(companyContributions[idx])}</Typography>
                 <Typography variant="caption">
-                  <i>Maximum possible: {currencyFormatter(roundToNearestCent(income[idx] * 0.02))}</i>
+                  <i>
+                    Maximum possible:{' '}
+                    {currencyFormatter(roundToNearestCent((income[idx] * companyContributionPercentage) / 100))}
+                  </i>
                 </Typography>
               </TableCell>
             </TableRow>
