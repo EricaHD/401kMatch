@@ -1,4 +1,4 @@
-name: Build with Webpack and Deploy
+name: Release
 on:
   push:
     branches: ['main']
@@ -8,7 +8,7 @@ permissions:
   pages: write
   id-token: write
 jobs:
-  build-and-deploy:
+  test-build-deploy:
     runs-on: macos-latest
     steps:
       - name: Check out repository onto the runner
