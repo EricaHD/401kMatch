@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import SectionTitle from './SectionTitle';
 import Collapsible from './Collapsible';
-import { COMBINED_MAX_CONTRIBUTION } from './Content';
+import { COMBINED_MAX_CONTRIBUTION } from './utils/constants';
 import { currencyWithoutCentsFormatter } from './utils/monetaryCalculations';
 import styles from './styles/Footer';
 
