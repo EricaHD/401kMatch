@@ -14,7 +14,17 @@ import SectionTitle from './SectionTitle';
 import AutopopulateIncome from './AutopopulateIncome';
 import AutopopulateContributionPercentage from './AutopopulateContributionPercentage';
 import ContributionPercentageInput from './ContributionPercentageInput';
-import { AGE_CATEGORIES, AGE_TO_MAX_EMPLOYEE_CONTRIBUTION } from './utils/constants';
+import {
+  AGE_CATEGORIES,
+  AGE_TO_MAX_EMPLOYEE_CONTRIBUTION,
+  DEFAULT_COMPANY_CONTRIBUTION_PERCENTAGE,
+  DEFAULT_INCOME,
+  DEFAULT_STI,
+  DEFAULT_RETIREMENT_CONTRIBUTION,
+  NUM_PAYCHECKS,
+  PAYCHECKS,
+  STI_INDEX,
+} from './utils/constants';
 import {
   roundToNearestCent,
   calculatePercentOfIncome,
@@ -23,42 +33,6 @@ import {
 import { useLocalStorageState, setLocalStorage } from './utils/localStorage';
 import styles from './styles/App';
 import titleBackground from '../images/titleBackground.jpeg';
-
-const DEFAULT_COMPANY_CONTRIBUTION_PERCENTAGE = 2;
-const DEFAULT_INCOME = 7000;
-const DEFAULT_STI = 15000;
-const DEFAULT_RETIREMENT_CONTRIBUTION = 12;
-
-const STI_STRING = 'STI';
-const PAYCHECKS = [
-  'Jan #1',
-  'Jan #2',
-  'Feb #1',
-  'Feb #2',
-  STI_STRING,
-  'Mar #1',
-  'Mar #2',
-  'Apr #1',
-  'Apr #2',
-  'May #1',
-  'May #2',
-  'Jun #1',
-  'Jun #2',
-  'Jul #1',
-  'Jul #2',
-  'Aug #1',
-  'Aug #2',
-  'Sept #1',
-  'Sept #2',
-  'Oct #1',
-  'Oct #2',
-  'Nov #1',
-  'Nov #2',
-  'Dec #1',
-  'Dec #2',
-];
-const STI_INDEX = PAYCHECKS.indexOf(STI_STRING);
-const NUM_PAYCHECKS = PAYCHECKS.length;
 
 const App = () => {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
