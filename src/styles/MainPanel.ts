@@ -1,6 +1,6 @@
 export default {
-  fullWidth: {
-    width: '100%',
+  box: {
+    padding: 3,
   },
   protipNote: {
     paddingBottom: 5,

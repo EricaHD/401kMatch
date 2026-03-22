@@ -14,6 +14,7 @@ import {
 } from './utils/constants';
 import { roundToNearestCent, calculatePercentOfIncome } from './utils/monetaryCalculations';
 import { useLocalStorageState, setLocalStorage } from './utils/localStorage';
+import styles from './styles/App';
 
 const App = () => {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -176,32 +177,30 @@ const App = () => {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   return (
-    <>
-      <Box sx={{ display: 'flex' }}>
-        <SidePanel
-          companyContributionPercentage={companyContributionPercentage}
-          onChangeCompanyContributionPercentage={onChangeCompanyContributionPercentage}
-          ageCategory={ageCategory}
-          onChangeMaxEmployeeContribution={onChangeMaxEmployeeContribution}
-        />
-        <MainPanel
-          cumulativeEmployeeContribution={cumulativeEmployeeContribution}
-          ageCategory={ageCategory}
-          cumulativeCompanyContribution={cumulativeCompanyContribution}
-          maxCompanyContribution={maxCompanyContribution}
-          employeeSeries={employeeSeries}
-          companySeries={companySeries}
-          unusedMatchSeries={unusedMatchSeries}
-          income={income}
-          onChangeIncome={onChangeIncome}
-          contributionPercentage={contributionPercentage}
-          onChangeContributionPercentage={onChangeContributionPercentage}
-          companyContributionPercentage={companyContributionPercentage}
-          autopopulateIncome={autopopulateIncome}
-          autopopulateContributionPercentage={autopopulateContributionPercentage}
-        />
-      </Box>
-    </>
+    <Box sx={styles.box}>
+      <SidePanel
+        companyContributionPercentage={companyContributionPercentage}
+        onChangeCompanyContributionPercentage={onChangeCompanyContributionPercentage}
+        ageCategory={ageCategory}
+        onChangeMaxEmployeeContribution={onChangeMaxEmployeeContribution}
+      />
+      <MainPanel
+        cumulativeEmployeeContribution={cumulativeEmployeeContribution}
+        ageCategory={ageCategory}
+        cumulativeCompanyContribution={cumulativeCompanyContribution}
+        maxCompanyContribution={maxCompanyContribution}
+        employeeSeries={employeeSeries}
+        companySeries={companySeries}
+        unusedMatchSeries={unusedMatchSeries}
+        income={income}
+        onChangeIncome={onChangeIncome}
+        contributionPercentage={contributionPercentage}
+        onChangeContributionPercentage={onChangeContributionPercentage}
+        companyContributionPercentage={companyContributionPercentage}
+        autopopulateIncome={autopopulateIncome}
+        autopopulateContributionPercentage={autopopulateContributionPercentage}
+      />
+    </Box>
   );
 };
 

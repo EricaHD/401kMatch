@@ -46,8 +46,8 @@ const MainPanel: React.FC<MainPanelProps> = ({
   autopopulateContributionPercentage,
 }) => {
   return (
-    <Box component="main" sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}>
-      <Stack sx={styles.fullWidth}>
+    <Box component="main" sx={styles.box}>
+      <Stack>
         <Stack direction="row" spacing={7} justifyContent="center">
           <CumulativeContributionInfo
             cumulativeContribution={cumulativeEmployeeContribution}
