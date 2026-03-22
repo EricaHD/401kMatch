@@ -9,8 +9,7 @@ import AgeSelection from './AgeSelection';
 import ContributionPercentageInput from './ContributionPercentageInput';
 import { AGE_TO_MAX_EMPLOYEE_CONTRIBUTION } from './utils/constants';
 import { currencyWithoutCentsFormatter } from './utils/monetaryCalculations';
-import styles from './styles/App';
-import titleBackground from '../images/titleBackground.jpeg';
+import styles from './styles/SidePanel';
 
 interface SidePanelProps {
   companyContributionPercentage: number;
@@ -26,22 +25,7 @@ const SidePanel: React.FC<SidePanelProps> = ({
   onChangeMaxEmployeeContribution,
 }) => {
   return (
-    <Drawer
-      sx={{
-        width: 500,
-        flexShrink: 0,
-        '& .MuiDrawer-paper': {
-          width: 500,
-          boxSizing: 'border-box',
-          backgroundImage: `url(${titleBackground})`,
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        },
-      }}
-      variant="permanent"
-      anchor="left"
-    >
+    <Drawer sx={styles.titleBackgroundImage} variant="permanent" anchor="left">
       <Header />
       <Box sx={styles.scrollDownNote}>
         <Divider sx={{ margin: '30px 0' }} style={{ background: 'gray' }} />
