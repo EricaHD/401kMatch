@@ -27,7 +27,7 @@ const SidePanel: React.FC<SidePanelProps> = ({
   return (
     <Drawer sx={styles.titleBackgroundImage} variant="permanent" anchor="left">
       <Header />
-      <Box sx={styles.scrollDownNote}>
+      <Box sx={styles.inputs}>
         <Divider sx={{ margin: '30px 0' }} style={{ background: 'gray' }} />
         <Stack direction="row" spacing={3} alignItems="center" marginBottom={'30px'}>
           <Typography variant="subtitle1">Company match percentage:</Typography>

@@ -2,7 +2,7 @@ export default {
   fullWidth: {
     width: '100%',
   },
-  scrollDownNote: {
+  protipNote: {
     paddingBottom: 5,
     paddingLeft: 5,
     paddingRight: 5,

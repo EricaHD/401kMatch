@@ -5,7 +5,7 @@ import styles from './styles/Header';
 
 const Header = () => {
   return (
-    <Box sx={styles.headerBackground}>
+    <Box sx={styles.header}>
       <Typography sx={styles.yearText}>2026</Typography>
       <Typography sx={styles.titleText}>
         401k

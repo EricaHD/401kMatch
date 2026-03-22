@@ -1,7 +1,7 @@
 import { textColor } from '../utils/colors';
 
 export default {
-  headerBackground: {
+  header: {
     padding: 5,
   },
   yearText: {

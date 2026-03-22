@@ -1,7 +1,7 @@
 import titleBackground from '../../images/titleBackground.jpeg';
 
 export default {
-  scrollDownNote: {
+  inputs: {
     paddingBottom: 5,
     paddingLeft: 5,
     paddingRight: 5,

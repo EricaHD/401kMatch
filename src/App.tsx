@@ -229,7 +229,7 @@ const App = () => {
             />
 
             <SectionTitle title={'Summary of Contributions'} marginTop={'35px'} marginBottom={'5px'} />
-            <Typography variant="subtitle1" sx={styles.scrollDownNote}>
+            <Typography variant="subtitle1" sx={styles.protipNote}>
               <i>
                 Protip: after you adjust a value in the table below, click outside the text box to make sure the change
                 takes effect!
