@@ -1,15 +1,7 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
-import Footer from './Footer';
 import SidePanel from './SidePanel';
-import CumulativeContributionInfo from './CumulativeContributionInfo';
-import Chart from './Chart';
-import SummaryTable from './SummaryTable';
-import SectionTitle from './SectionTitle';
-import AutopopulateIncome from './AutopopulateIncome';
-import AutopopulateContributionPercentage from './AutopopulateContributionPercentage';
+import MainPanel from './MainPanel';
 import {
   AGE_CATEGORIES,
   AGE_TO_MAX_EMPLOYEE_CONTRIBUTION,
@@ -18,12 +10,10 @@ import {
   DEFAULT_STI,
   DEFAULT_RETIREMENT_CONTRIBUTION,
   NUM_PAYCHECKS,
-  PAYCHECKS,
   STI_INDEX,
 } from './utils/constants';
 import { roundToNearestCent, calculatePercentOfIncome } from './utils/monetaryCalculations';
 import { useLocalStorageState, setLocalStorage } from './utils/localStorage';
-import styles from './styles/App';
 
 const App = () => {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -194,67 +184,22 @@ const App = () => {
           ageCategory={ageCategory}
           onChangeMaxEmployeeContribution={onChangeMaxEmployeeContribution}
         />
-        {/* Main panel */}
-        <Box component="main" sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}>
-          <Stack sx={styles.fullWidth}>
-            <Stack direction="row" spacing={7} justifyContent="center">
-              <CumulativeContributionInfo
-                cumulativeContribution={cumulativeEmployeeContribution}
-                maximumContribution={AGE_TO_MAX_EMPLOYEE_CONTRIBUTION[ageCategory]}
-                employeeOrCompany={'employee'}
-              />
-              <CumulativeContributionInfo
-                cumulativeContribution={cumulativeCompanyContribution}
-                maximumContribution={maxCompanyContribution}
-                employeeOrCompany={'company'}
-              />
-            </Stack>
-
-            <SectionTitle title={'Employee Contributions'} marginTop={'35px'} marginBottom={'0px'} />
-            <Chart
-              xAxisData={PAYCHECKS}
-              contributionData={employeeSeries}
-              unusedMatchData={[]}
-              maximumContribution={AGE_TO_MAX_EMPLOYEE_CONTRIBUTION[ageCategory]}
-              maximumContributionLabel={'Maximum Employee Contribution'}
-            />
-
-            <SectionTitle title={'Company Contributions'} marginTop={'35px'} marginBottom={'0px'} />
-            <Chart
-              xAxisData={PAYCHECKS}
-              contributionData={companySeries}
-              unusedMatchData={unusedMatchSeries}
-              maximumContribution={maxCompanyContribution}
-              maximumContributionLabel={'Maximum Company Contribution'}
-            />
-
-            <SectionTitle title={'Summary of Contributions'} marginTop={'35px'} marginBottom={'5px'} />
-            <Typography variant="subtitle1" sx={styles.protipNote}>
-              <i>
-                Protip: after you adjust a value in the table below, click outside the text box to make sure the change
-                takes effect!
-              </i>
-            </Typography>
-            <Stack direction="row" spacing={5} justifyContent="center" sx={styles.autopopulateButtons}>
-              <AutopopulateIncome autopopulateIncome={autopopulateIncome} />
-              <AutopopulateContributionPercentage
-                autopopulateContributionPercentage={autopopulateContributionPercentage}
-              />
-            </Stack>
-            <SummaryTable
-              paychecks={PAYCHECKS}
-              income={income}
-              onChangeIncome={onChangeIncome}
-              contributionPercentage={contributionPercentage}
-              onChangeContributionPercentage={onChangeContributionPercentage}
-              companyContributionPercentage={companyContributionPercentage}
-              employeeContributions={employeeSeries}
-              companyContributions={companySeries}
-              stiIndex={STI_INDEX}
-            />
-          </Stack>
-          <Footer />
-        </Box>
+        <MainPanel
+          cumulativeEmployeeContribution={cumulativeEmployeeContribution}
+          ageCategory={ageCategory}
+          cumulativeCompanyContribution={cumulativeCompanyContribution}
+          maxCompanyContribution={maxCompanyContribution}
+          employeeSeries={employeeSeries}
+          companySeries={companySeries}
+          unusedMatchSeries={unusedMatchSeries}
+          income={income}
+          onChangeIncome={onChangeIncome}
+          contributionPercentage={contributionPercentage}
+          onChangeContributionPercentage={onChangeContributionPercentage}
+          companyContributionPercentage={companyContributionPercentage}
+          autopopulateIncome={autopopulateIncome}
+          autopopulateContributionPercentage={autopopulateContributionPercentage}
+        />
       </Box>
     </>
   );
