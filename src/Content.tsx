@@ -21,6 +21,7 @@ import {
 } from './utils/monetaryCalculations';
 import { useLocalStorageState, setLocalStorage } from './utils/localStorage';
 import styles from './styles/Content';
+import titleBackground from '../images/titleBackground.jpeg';
 
 export const AGE_CATEGORIES = Object.freeze({
   UNDER_50: 'UNDER_50',
@@ -243,6 +244,10 @@ const Content = () => {
             '& .MuiDrawer-paper': {
               width: 500,
               boxSizing: 'border-box',
+              backgroundImage: `url(${titleBackground})`,
+              backgroundRepeat: 'no-repeat',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
             },
           }}
           variant="permanent"
