@@ -2,18 +2,14 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import Drawer from '@mui/material/Drawer';
-import Divider from '@mui/material/Divider';
-import Header from './Header';
 import Footer from './Footer';
-import AgeSelection from './AgeSelection';
+import SidePanel from './SidePanel';
 import CumulativeContributionInfo from './CumulativeContributionInfo';
 import Chart from './Chart';
 import SummaryTable from './SummaryTable';
 import SectionTitle from './SectionTitle';
 import AutopopulateIncome from './AutopopulateIncome';
 import AutopopulateContributionPercentage from './AutopopulateContributionPercentage';
-import ContributionPercentageInput from './ContributionPercentageInput';
 import {
   AGE_CATEGORIES,
   AGE_TO_MAX_EMPLOYEE_CONTRIBUTION,
@@ -25,14 +21,9 @@ import {
   PAYCHECKS,
   STI_INDEX,
 } from './utils/constants';
-import {
-  roundToNearestCent,
-  calculatePercentOfIncome,
-  currencyWithoutCentsFormatter,
-} from './utils/monetaryCalculations';
+import { roundToNearestCent, calculatePercentOfIncome } from './utils/monetaryCalculations';
 import { useLocalStorageState, setLocalStorage } from './utils/localStorage';
 import styles from './styles/App';
-import titleBackground from '../images/titleBackground.jpeg';
 
 const App = () => {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -196,46 +187,13 @@ const App = () => {
 
   return (
     <>
-      {/* Side panel */}
       <Box sx={{ display: 'flex' }}>
-        <Drawer
-          sx={{
-            width: 500,
-            flexShrink: 0,
-            '& .MuiDrawer-paper': {
-              width: 500,
-              boxSizing: 'border-box',
-              backgroundImage: `url(${titleBackground})`,
-              backgroundRepeat: 'no-repeat',
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-            },
-          }}
-          variant="permanent"
-          anchor="left"
-        >
-          <Header />
-          <Box sx={styles.scrollDownNote}>
-            <Divider sx={{ margin: '30px 0' }} style={{ background: 'gray' }} />
-            <Stack direction="row" spacing={3} alignItems="center" marginBottom={'30px'}>
-              <Typography variant="subtitle1">Company match percentage:</Typography>
-              <ContributionPercentageInput
-                value={companyContributionPercentage}
-                onChange={onChangeCompanyContributionPercentage}
-              />
-            </Stack>
-            <Divider sx={{ margin: '30px 0' }} style={{ background: 'gray' }} />
-            <AgeSelection defaultValue={ageCategory} onChange={onChangeMaxEmployeeContribution} />
-            <Typography variant="subtitle1">
-              Employee contribution limit:{' '}
-              <b>{currencyWithoutCentsFormatter(AGE_TO_MAX_EMPLOYEE_CONTRIBUTION[ageCategory])}</b>
-            </Typography>
-            <Divider sx={{ margin: '30px 0' }} style={{ background: 'gray' }} />
-            <Typography variant="subtitle1">
-              Enter income and retirement contribution percentage details in the table.
-            </Typography>
-          </Box>
-        </Drawer>
+        <SidePanel
+          companyContributionPercentage={companyContributionPercentage}
+          onChangeCompanyContributionPercentage={onChangeCompanyContributionPercentage}
+          ageCategory={ageCategory}
+          onChangeMaxEmployeeContribution={onChangeMaxEmployeeContribution}
+        />
         {/* Main panel */}
         <Box component="main" sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}>
           <Stack sx={styles.fullWidth}>
