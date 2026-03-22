@@ -1,6 +1,10 @@
 import titleBackground from '../../images/titleBackground.jpeg';
 
 export default {
+  divider: {
+    margin: '30px 0',
+    background: 'gray',
+  },
   inputs: {
     paddingBottom: 5,
     paddingLeft: 5,

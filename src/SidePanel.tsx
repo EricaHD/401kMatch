@@ -28,7 +28,7 @@ const SidePanel: React.FC<SidePanelProps> = ({
     <Drawer sx={styles.titleBackgroundImage} variant="permanent" anchor="left">
       <Header />
       <Box sx={styles.inputs}>
-        <Divider sx={{ margin: '30px 0' }} style={{ background: 'gray' }} />
+        <Divider sx={styles.divider} />
         <Stack direction="row" spacing={3} alignItems="center" marginBottom={'30px'}>
           <Typography variant="subtitle1">Company match percentage:</Typography>
           <ContributionPercentageInput
@@ -36,13 +36,13 @@ const SidePanel: React.FC<SidePanelProps> = ({
             onChange={onChangeCompanyContributionPercentage}
           />
         </Stack>
-        <Divider sx={{ margin: '30px 0' }} style={{ background: 'gray' }} />
+        <Divider sx={styles.divider} />
         <AgeSelection defaultValue={ageCategory} onChange={onChangeMaxEmployeeContribution} />
         <Typography variant="subtitle1">
           Employee contribution limit:{' '}
           <b>{currencyWithoutCentsFormatter(AGE_TO_MAX_EMPLOYEE_CONTRIBUTION[ageCategory])}</b>
         </Typography>
-        <Divider sx={{ margin: '30px 0' }} style={{ background: 'gray' }} />
+        <Divider sx={styles.divider} />
         <Typography variant="subtitle1">
           Enter income and retirement contribution percentage details in the table.
         </Typography>

@@ -18,10 +18,6 @@ export default {
     color: textColor,
   },
   subtitleText: {
-    fontSize: '1.2rem',
-    fontWeight: 400,
-    color: textColor,
-    paddingTop: 2,
-    paddingLeft: 0.5,
+    fontStyle: 'italic',
   },
 };
