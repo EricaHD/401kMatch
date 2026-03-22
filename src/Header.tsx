@@ -8,11 +8,14 @@ const Header = () => {
     <Box sx={styles.headerBackground}>
       <Typography sx={styles.yearText}>2026</Typography>
       <Typography sx={styles.titleText}>
-        Retirement
+        401k
         <br />
         Contribution
         <br />
         Calculator
+      </Typography>
+      <Typography variant="subtitle1" marginTop={'20px'} sx={{ fontStyle: 'italic' }}>
+        This calculator assumes the company has a per-paycheck matching system and there is no true-up match.
       </Typography>
     </Box>
   );

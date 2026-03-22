@@ -3,9 +3,9 @@ export default {
     width: '100%',
   },
   scrollDownNote: {
-    paddingBottom: 10,
-    paddingLeft: 10,
-    paddingRight: 10,
+    paddingBottom: 5,
+    paddingLeft: 5,
+    paddingRight: 5,
   },
   autopopulateButtons: {
     marginBottom: '30px',

@@ -2,7 +2,7 @@ import { textColor } from '../utils/colors';
 
 export default {
   headerBackground: {
-    padding: 10,
+    padding: 5,
   },
   yearText: {
     fontSize: '2.25rem',
