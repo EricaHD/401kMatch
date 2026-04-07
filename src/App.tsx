@@ -18,12 +18,15 @@ import styles from './styles/App';
 
 const App = () => {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  // STATE - AGE & MAX CONTRIBUTION                                                                                   //
+  // CLEAR LEGACY LOCAL STORAGE                                                                                       //
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  // Clear legacy local storage keys that are no longer used
   setLocalStorage('local_storage_max_contribution', null);
   setLocalStorage('local_storage_max_contribution_2025', null);
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // STATE - AGE & MAX CONTRIBUTION                                                                                   //
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   const [ageCategory, setAgeCategory] = useLocalStorageState(
     'local_storage_age_category_2025', // also used in 2026
@@ -57,13 +60,6 @@ const App = () => {
   const initialIncomeArray = Array(NUM_PAYCHECKS).fill(DEFAULT_INCOME);
   initialIncomeArray[STI_INDEX] = DEFAULT_STI;
   const [income, setIncome] = useLocalStorageState('local_storage_income', initialIncomeArray);
-  const [maxCompanyContribution, setMaxCompanyContribution] = React.useState(
-    calculatePercentOfIncome(income, companyContributionPercentage / 100)
-  );
-
-  React.useEffect(() => {
-    setMaxCompanyContribution(calculatePercentOfIncome(income, companyContributionPercentage / 100));
-  }, [income, companyContributionPercentage]);
 
   const onChangeIncome = (idx: number, value: number): void => {
     const newValue = value === null ? 0 : value;
@@ -71,24 +67,17 @@ const App = () => {
     setIncome(newIncome);
   };
 
-  const autopopulateIncome = (preMarchAnnualSalary: number, postMarchAnnualSalary: number, sti: number): void => {
-    const newPreMarchAnnualSalary = preMarchAnnualSalary === null ? 0 : preMarchAnnualSalary;
-    const newPostMarchAnnualSalary = postMarchAnnualSalary === null ? 0 : postMarchAnnualSalary;
-    const newSti = sti === null ? 0 : sti;
-    const newIncome = Array(NUM_PAYCHECKS).fill(0);
-    for (let i = 0; i < newIncome.length; i++) {
-      if (i < STI_INDEX) {
-        newIncome[i] = roundToNearestCent(newPreMarchAnnualSalary / 24);
-      }
-      if (i === STI_INDEX) {
-        newIncome[i] = newSti;
-      }
-      if (i > STI_INDEX) {
-        newIncome[i] = roundToNearestCent(newPostMarchAnnualSalary / 24);
-      }
-    }
-    setIncome(newIncome);
-  };
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // STATE - MAX COMPANY CONTRIBUTION                                                                                 //
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  const [maxCompanyContribution, setMaxCompanyContribution] = React.useState(
+    calculatePercentOfIncome(income, companyContributionPercentage / 100)
+  );
+
+  React.useEffect(() => {
+    setMaxCompanyContribution(calculatePercentOfIncome(income, companyContributionPercentage / 100));
+  }, [income, companyContributionPercentage]);
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // STATE - CONTRIBUTION PERCENTAGES                                                                                 //
@@ -108,6 +97,29 @@ const App = () => {
         ? Object.assign([...contributionPercentage], { [idx]: newValue }, { [STI_INDEX]: newValue })
         : Object.assign([...contributionPercentage], { [idx]: newValue });
     setContributionPercentage(newContributionPercentage);
+  };
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // AUTOPOPULATE                                                                                                     //
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  const autopopulateIncome = (preMarchAnnualSalary: number, postMarchAnnualSalary: number, sti: number): void => {
+    const newPreMarchAnnualSalary = preMarchAnnualSalary === null ? 0 : preMarchAnnualSalary;
+    const newPostMarchAnnualSalary = postMarchAnnualSalary === null ? 0 : postMarchAnnualSalary;
+    const newSti = sti === null ? 0 : sti;
+    const newIncome = Array(NUM_PAYCHECKS).fill(0);
+    for (let i = 0; i < newIncome.length; i++) {
+      if (i < STI_INDEX) {
+        newIncome[i] = roundToNearestCent(newPreMarchAnnualSalary / 24);
+      }
+      if (i === STI_INDEX) {
+        newIncome[i] = newSti;
+      }
+      if (i > STI_INDEX) {
+        newIncome[i] = roundToNearestCent(newPostMarchAnnualSalary / 24);
+      }
+    }
+    setIncome(newIncome);
   };
 
   const autopopulateContributionPercentage = (retirementContribution: number): void => {
@@ -134,7 +146,7 @@ const App = () => {
     const newCompanySeries = [];
     const newUnusedMatchSeries = [];
     for (let i = 0; i < NUM_PAYCHECKS; i++) {
-      // Employee contribution
+      // Employee contribution 
       let employeeContribution = roundToNearestCent((income[i] * contributionPercentage[i]) / 100.0);
       if (newCumulativeEmployeeContribution + employeeContribution > AGE_TO_MAX_EMPLOYEE_CONTRIBUTION[ageCategory]) {
         const overage =
