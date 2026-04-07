@@ -19,5 +19,12 @@
     "skipLibCheck": true,
     "strict": true
   },
-  "include": ["src/**/*", "images/**/*", "webpack.common.ts", "webpack.dev.ts", "webpack.prod.ts"]
+  "include": [
+    "src/**/*",
+    "images/**/*",
+    "jest.setup.ts",
+    "webpack.common.ts",
+    "webpack.dev.ts",
+    "webpack.prod.ts",
+  ]
 }
