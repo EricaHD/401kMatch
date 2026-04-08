@@ -6,6 +6,7 @@ export default {
     paddingBottom: 5,
     paddingLeft: 5,
     paddingRight: 5,
+    textAlign: 'center',
   },
   autopopulateButtons: {
     marginBottom: '30px',
