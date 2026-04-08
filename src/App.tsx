@@ -134,7 +134,6 @@ const App = () => {
 
   const [employeeSeries, setEmployeeSeries] = React.useState([]);
   const [companySeries, setCompanySeries] = React.useState([]);
-  const [unusedMatchSeries, setUnusedMatchSeries] = React.useState([]);
   const [cumulativeEmployeeContribution, setCumulativeEmployeeContribution] = React.useState(0);
   const [cumulativeCompanyContribution, setCumulativeCompanyContribution] = React.useState(0);
 
@@ -144,9 +143,8 @@ const App = () => {
 
     const newEmployeeSeries = [];
     const newCompanySeries = [];
-    const newUnusedMatchSeries = [];
     for (let i = 0; i < NUM_PAYCHECKS; i++) {
-      // Employee contribution 
+      // Employee contribution
       let employeeContribution = roundToNearestCent((income[i] * contributionPercentage[i]) / 100.0);
       if (newCumulativeEmployeeContribution + employeeContribution > AGE_TO_MAX_EMPLOYEE_CONTRIBUTION[ageCategory]) {
         const overage =
@@ -161,7 +159,6 @@ const App = () => {
       // Company contribution
       const possibleCompanyContribution = roundToNearestCent(income[i] * (companyContributionPercentage / 100));
       const companyContribution = Math.min(possibleCompanyContribution, employeeContribution);
-      const unusedCompanyContribution = possibleCompanyContribution - companyContribution;
 
       // Update cumulative contributions
       newCumulativeEmployeeContribution += employeeContribution;
@@ -170,7 +167,6 @@ const App = () => {
       // Series
       newEmployeeSeries.push(employeeContribution);
       newCompanySeries.push(companyContribution);
-      newUnusedMatchSeries.push(unusedCompanyContribution);
     }
 
     // State setters
@@ -178,8 +174,6 @@ const App = () => {
     setEmployeeSeries(newEmployeeSeries);
     // @ts-ignore
     setCompanySeries(newCompanySeries);
-    // @ts-ignore
-    setUnusedMatchSeries(newUnusedMatchSeries);
     setCumulativeEmployeeContribution(newCumulativeEmployeeContribution);
     setCumulativeCompanyContribution(newCumulativeCompanyContribution);
   }, [ageCategory, income, contributionPercentage, companyContributionPercentage]);
@@ -203,7 +197,6 @@ const App = () => {
         maxCompanyContribution={maxCompanyContribution}
         employeeSeries={employeeSeries}
         companySeries={companySeries}
-        unusedMatchSeries={unusedMatchSeries}
         income={income}
         onChangeIncome={onChangeIncome}
         contributionPercentage={contributionPercentage}

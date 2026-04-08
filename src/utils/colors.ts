@@ -25,6 +25,4 @@ export const grey = {
   900: '#1C2025',
 };
 
-export const PAY_PERIOD_COLOR = '#16A080';
 export const CUMULATIVE_COLOR = '#5D44C2';
-export const UNUSED_MATCH_COLOR = '#EFEFEF';

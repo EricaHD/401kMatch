@@ -4,7 +4,6 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Footer from './Footer';
 import CumulativeContributionInfo from './CumulativeContributionInfo';
-import Chart from './Chart';
 import SummaryTable from './SummaryTable';
 import SectionTitle from './SectionTitle';
 import AutopopulateIncome from './AutopopulateIncome';
@@ -19,7 +18,6 @@ interface MainPanelProps {
   maxCompanyContribution: number;
   employeeSeries: number[];
   companySeries: number[];
-  unusedMatchSeries: number[];
   income: number[];
   onChangeIncome: (idx: number, value: number) => void;
   contributionPercentage: number[];
@@ -36,7 +34,6 @@ const MainPanel: React.FC<MainPanelProps> = ({
   maxCompanyContribution,
   employeeSeries,
   companySeries,
-  unusedMatchSeries,
   income,
   onChangeIncome,
   contributionPercentage,
@@ -60,24 +57,6 @@ const MainPanel: React.FC<MainPanelProps> = ({
             employeeOrCompany={'company'}
           />
         </Stack>
-
-        <SectionTitle title={'Employee Contributions'} marginTop={'35px'} marginBottom={'0px'} />
-        <Chart
-          xAxisData={PAYCHECKS}
-          contributionData={employeeSeries}
-          unusedMatchData={[]}
-          maximumContribution={AGE_TO_MAX_EMPLOYEE_CONTRIBUTION[ageCategory]}
-          maximumContributionLabel={'Maximum Employee Contribution'}
-        />
-
-        <SectionTitle title={'Company Contributions'} marginTop={'35px'} marginBottom={'0px'} />
-        <Chart
-          xAxisData={PAYCHECKS}
-          contributionData={companySeries}
-          unusedMatchData={unusedMatchSeries}
-          maximumContribution={maxCompanyContribution}
-          maximumContributionLabel={'Maximum Company Contribution'}
-        />
 
         <SectionTitle title={'Summary of Contributions'} marginTop={'35px'} marginBottom={'5px'} />
         <Typography variant="subtitle1" sx={styles.protipNote}>
