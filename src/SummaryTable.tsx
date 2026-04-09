@@ -21,6 +21,10 @@ interface Props {
   companyContributionPercentage: number;
   employeeContributions: number[];
   companyContributions: number[];
+  cumulativeEmployeeContribution: number;
+  maximumEmployeeContribution: number;
+  cumulativeCompanyContribution: number;
+  maximumCompanyContribution: number;
   stiIndex: number;
 }
 
@@ -33,6 +37,10 @@ const SummaryTable = ({
   companyContributionPercentage,
   employeeContributions,
   companyContributions,
+  cumulativeEmployeeContribution,
+  maximumEmployeeContribution,
+  cumulativeCompanyContribution,
+  maximumCompanyContribution,
   stiIndex,
 }: Props) => {
   return (
@@ -110,6 +118,41 @@ const SummaryTable = ({
               </TableCell>
             </TableRow>
           ))}
+          <TableRow sx={styles.tableRow}>
+            <TableCell component="th" scope="row">
+              <Typography variant="body1">
+                <b>Total</b>
+              </Typography>
+            </TableCell>
+            <TableCell component="th" scope="row">
+              <Typography variant="body1">
+                <b>{currencyFormatter(income.reduce((sum, val) => sum + val, 0))}</b>
+              </Typography>
+            </TableCell>
+            <TableCell />
+            <TableCell component="th" scope="row" sx={styles.centerText}>
+              <Typography variant="body1">
+                <b>{currencyFormatter(cumulativeEmployeeContribution)}</b>
+              </Typography>
+              <Typography variant="caption">
+                <i>
+                  Maximum possible:{' '}
+                  {currencyFormatter(maximumEmployeeContribution)}
+                </i>
+              </Typography>
+            </TableCell>
+            <TableCell component="th" scope="row" sx={styles.centerText}>
+              <Typography variant="body1">
+                <b>{currencyFormatter(cumulativeCompanyContribution)}</b>
+              </Typography>
+              <Typography variant="caption">
+                <i>
+                  Maximum possible:{' '}
+                  {currencyFormatter(maximumCompanyContribution)}
+                </i>
+              </Typography>
+            </TableCell>
+          </TableRow>
         </TableBody>
       </Table>
     </TableContainer>

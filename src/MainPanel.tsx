@@ -68,6 +68,10 @@ const MainPanel: React.FC<MainPanelProps> = ({
           companyContributionPercentage={companyContributionPercentage}
           employeeContributions={employeeSeries}
           companyContributions={companySeries}
+          cumulativeEmployeeContribution={cumulativeEmployeeContribution}
+          maximumEmployeeContribution={AGE_TO_MAX_EMPLOYEE_CONTRIBUTION[ageCategory]}
+          cumulativeCompanyContribution={cumulativeCompanyContribution}
+          maximumCompanyContribution={maxCompanyContribution}
           stiIndex={STI_INDEX}
         />
       </Stack>

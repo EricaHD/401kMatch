@@ -7,7 +7,11 @@ export default {
     width: '95%',
   },
   tableRow: {
+    height: '60px',
     '&:last-child td, &:last-child th': { border: 0 },
+    '&:last-child': {
+      backgroundColor: '#f4f4f4',
+    },
   },
   stiExplanation: {
     textAlign: 'center',
