@@ -6,7 +6,7 @@ import Footer from './Footer';
 import CumulativeContributionInfo from './CumulativeContributionInfo';
 import SummaryTable from './SummaryTable';
 import SectionTitle from './SectionTitle';
-import { AGE_TO_MAX_EMPLOYEE_CONTRIBUTION, PAYCHECKS, STI_INDEX } from './utils/constants';
+import { AGE_TO_MAX_EMPLOYEE_CONTRIBUTION, PAYCHECKS } from './utils/constants';
 import styles from './styles/MainPanel';
 
 interface MainPanelProps {
@@ -72,7 +72,6 @@ const MainPanel: React.FC<MainPanelProps> = ({
           maximumEmployeeContribution={AGE_TO_MAX_EMPLOYEE_CONTRIBUTION[ageCategory]}
           cumulativeCompanyContribution={cumulativeCompanyContribution}
           maximumCompanyContribution={maxCompanyContribution}
-          stiIndex={STI_INDEX}
         />
       </Stack>
       <Footer />

@@ -7,10 +7,8 @@ import {
   AGE_TO_MAX_EMPLOYEE_CONTRIBUTION,
   DEFAULT_COMPANY_CONTRIBUTION_PERCENTAGE,
   DEFAULT_INCOME,
-  DEFAULT_STI,
   DEFAULT_RETIREMENT_CONTRIBUTION,
   NUM_PAYCHECKS,
-  STI_INDEX,
 } from './utils/constants';
 import { roundToNearestCent, calculatePercentOfIncome } from './utils/monetaryCalculations';
 import { useLocalStorageState, setLocalStorage } from './utils/localStorage';
@@ -23,6 +21,8 @@ const App = () => {
 
   setLocalStorage('local_storage_max_contribution', null);
   setLocalStorage('local_storage_max_contribution_2025', null);
+  setLocalStorage('local_storage_contribution_percentage', null);
+  setLocalStorage('local_storage_income', null);
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // STATE - AGE & MAX CONTRIBUTION                                                                                   //
@@ -58,8 +58,7 @@ const App = () => {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   const initialIncomeArray = Array(NUM_PAYCHECKS).fill(DEFAULT_INCOME);
-  initialIncomeArray[STI_INDEX] = DEFAULT_STI;
-  const [income, setIncome] = useLocalStorageState('local_storage_income', initialIncomeArray);
+  const [income, setIncome] = useLocalStorageState('local_storage_employee_income', initialIncomeArray);
 
   const onChangeIncome = (idx: number, value: number): void => {
     const newValue = value === null ? 0 : value;
@@ -85,17 +84,13 @@ const App = () => {
 
   const initialContributionPercentage = Array(NUM_PAYCHECKS).fill(DEFAULT_RETIREMENT_CONTRIBUTION);
   const [contributionPercentage, setContributionPercentage] = useLocalStorageState(
-    'local_storage_contribution_percentage',
+    'local_storage_employee_contribution_percentage',
     initialContributionPercentage
   );
 
   const onChangeContributionPercentage = (idx: number, value: number): void => {
     const newValue = value === null ? 0 : value;
-    // Adjusting Mar #1 retirement contribution percentage should also adjust STI contribution percentage
-    const newContributionPercentage =
-      idx === STI_INDEX + 1
-        ? Object.assign([...contributionPercentage], { [idx]: newValue }, { [STI_INDEX]: newValue })
-        : Object.assign([...contributionPercentage], { [idx]: newValue });
+    const newContributionPercentage = Object.assign([...contributionPercentage], { [idx]: newValue });
     setContributionPercentage(newContributionPercentage);
   };
 

@@ -14,18 +14,15 @@ export const AGE_TO_MAX_EMPLOYEE_CONTRIBUTION = {
 
 export const COMBINED_MAX_CONTRIBUTION = 72000;
 
-export const DEFAULT_COMPANY_CONTRIBUTION_PERCENTAGE = 2;
-export const DEFAULT_INCOME = 7000;
-export const DEFAULT_STI = 15000;
-export const DEFAULT_RETIREMENT_CONTRIBUTION = 12;
+export const DEFAULT_COMPANY_CONTRIBUTION_PERCENTAGE = 6;
+export const DEFAULT_INCOME = 6250;
+export const DEFAULT_RETIREMENT_CONTRIBUTION = 15;
 
-const STI_STRING = 'STI';
 export const PAYCHECKS = [
   'Jan #1',
   'Jan #2',
   'Feb #1',
   'Feb #2',
-  STI_STRING,
   'Mar #1',
   'Mar #2',
   'Apr #1',
@@ -47,5 +44,4 @@ export const PAYCHECKS = [
   'Dec #1',
   'Dec #2',
 ];
-export const STI_INDEX = PAYCHECKS.indexOf(STI_STRING);
 export const NUM_PAYCHECKS = PAYCHECKS.length;

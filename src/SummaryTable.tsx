@@ -25,7 +25,6 @@ interface Props {
   maximumEmployeeContribution: number;
   cumulativeCompanyContribution: number;
   maximumCompanyContribution: number;
-  stiIndex: number;
 }
 
 const SummaryTable = ({
@@ -41,7 +40,6 @@ const SummaryTable = ({
   maximumEmployeeContribution,
   cumulativeCompanyContribution,
   maximumCompanyContribution,
-  stiIndex,
 }: Props) => {
   return (
     <TableContainer component={Paper} sx={styles.tableContainer}>
@@ -55,7 +53,7 @@ const SummaryTable = ({
                 <b>
                   Paycheck Income
                   <br />
-                  (annual salary ÷ 24, or STI grant)
+                  (annual salary ÷ 24)
                 </b>
               </Typography>
             </TableCell>
@@ -89,20 +87,10 @@ const SummaryTable = ({
                 <IncomeInput value={income[idx]} onChange={(val) => onChangeIncome(idx, val)} />
               </TableCell>
               <TableCell component="th" scope="row" key={`${paycheck}-contrib`}>
-                {idx !== stiIndex && (
-                  <ContributionPercentageInput
-                    value={contributionPercentage[idx]}
-                    onChange={(event, val) => onChangeContributionPercentage(idx, val)}
-                  />
-                )}
-                {idx === stiIndex && (
-                  <Typography variant="body2" sx={styles.stiExplanation}>
-                    <i>
-                      STI uses the same contribution percentage as the Mar #1 paycheck:{' '}
-                      <b>{contributionPercentage[stiIndex]}%</b>
-                    </i>
-                  </Typography>
-                )}
+                <ContributionPercentageInput
+                  value={contributionPercentage[idx]}
+                  onChange={(event, val) => onChangeContributionPercentage(idx, val)}
+                />
               </TableCell>
               <TableCell component="th" scope="row" key={`${paycheck}-employee`} sx={styles.centerText}>
                 <Typography variant="body1">{currencyFormatter(employeeContributions[idx])}</Typography>

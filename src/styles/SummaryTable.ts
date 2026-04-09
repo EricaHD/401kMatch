@@ -13,8 +13,4 @@ export default {
       backgroundColor: '#f4f4f4',
     },
   },
-  stiExplanation: {
-    textAlign: 'center',
-    width: '175px',
-  },
 };
