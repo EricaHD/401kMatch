@@ -28,12 +28,10 @@ const Footer = () => {
     'I am not a financial advisor; this is not financial advice.',
     'Certain values computed here could be off by 1¢ (depending on how different institutions handle fractions of a cent).',
     `Employee + company 401k contributions combined should not exceed ${combinedMaxContributionFormatted}. This calculator does not enforce this limit.`,
-    'The company has now introduced a true-up feature, but eligibility is contingent on a few factors and the true-up payment will not be delivered immediately. For those reasons, some employees may still be interested in maximizing per-paycheck matching.',
   ];
 
   const fidelity = [
     'Fidelity only allows integer contribution percentages (as does this calculator).',
-    'The company should automatically cap 401k contributions at the yearly limit, but if you contributed to a different 401k account for another job this year, you are responsible for contributing the correct amount to this account.',
     "Fidelity's website doesn't update as soon as contributions are made, and the way it displays end of year contributions can be misleading. I recommend using payslips as a source of truth.",
   ];
 
