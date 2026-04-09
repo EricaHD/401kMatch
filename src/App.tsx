@@ -100,35 +100,6 @@ const App = () => {
   };
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  // AUTOPOPULATE                                                                                                     //
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  const autopopulateIncome = (preMarchAnnualSalary: number, postMarchAnnualSalary: number, sti: number): void => {
-    const newPreMarchAnnualSalary = preMarchAnnualSalary === null ? 0 : preMarchAnnualSalary;
-    const newPostMarchAnnualSalary = postMarchAnnualSalary === null ? 0 : postMarchAnnualSalary;
-    const newSti = sti === null ? 0 : sti;
-    const newIncome = Array(NUM_PAYCHECKS).fill(0);
-    for (let i = 0; i < newIncome.length; i++) {
-      if (i < STI_INDEX) {
-        newIncome[i] = roundToNearestCent(newPreMarchAnnualSalary / 24);
-      }
-      if (i === STI_INDEX) {
-        newIncome[i] = newSti;
-      }
-      if (i > STI_INDEX) {
-        newIncome[i] = roundToNearestCent(newPostMarchAnnualSalary / 24);
-      }
-    }
-    setIncome(newIncome);
-  };
-
-  const autopopulateContributionPercentage = (retirementContribution: number): void => {
-    const newRetirementContribution = retirementContribution === null ? 0 : retirementContribution;
-    const newContributionPercentage = Array(NUM_PAYCHECKS).fill(newRetirementContribution);
-    setContributionPercentage(newContributionPercentage);
-  };
-
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // DATA - CHART DATA                                                                                                //
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -202,8 +173,6 @@ const App = () => {
         contributionPercentage={contributionPercentage}
         onChangeContributionPercentage={onChangeContributionPercentage}
         companyContributionPercentage={companyContributionPercentage}
-        autopopulateIncome={autopopulateIncome}
-        autopopulateContributionPercentage={autopopulateContributionPercentage}
       />
     </Box>
   );

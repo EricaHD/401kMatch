@@ -6,8 +6,6 @@ import Footer from './Footer';
 import CumulativeContributionInfo from './CumulativeContributionInfo';
 import SummaryTable from './SummaryTable';
 import SectionTitle from './SectionTitle';
-import AutopopulateIncome from './AutopopulateIncome';
-import AutopopulateContributionPercentage from './AutopopulateContributionPercentage';
 import { AGE_TO_MAX_EMPLOYEE_CONTRIBUTION, PAYCHECKS, STI_INDEX } from './utils/constants';
 import styles from './styles/MainPanel';
 
@@ -23,8 +21,6 @@ interface MainPanelProps {
   contributionPercentage: number[];
   onChangeContributionPercentage: (idx: number, value: number) => void;
   companyContributionPercentage: number;
-  autopopulateIncome: (preMarchAnnualSalary: number, postMarchAnnualSalary: number, sti: number) => void;
-  autopopulateContributionPercentage: (retirementContribution: number) => void;
 }
 
 const MainPanel: React.FC<MainPanelProps> = ({
@@ -39,8 +35,6 @@ const MainPanel: React.FC<MainPanelProps> = ({
   contributionPercentage,
   onChangeContributionPercentage,
   companyContributionPercentage,
-  autopopulateIncome,
-  autopopulateContributionPercentage,
 }) => {
   return (
     <Box component="main" sx={styles.box}>
@@ -65,10 +59,6 @@ const MainPanel: React.FC<MainPanelProps> = ({
             takes effect!
           </i>
         </Typography>
-        <Stack direction="row" spacing={5} justifyContent="center" sx={styles.autopopulateButtons}>
-          <AutopopulateIncome autopopulateIncome={autopopulateIncome} />
-          <AutopopulateContributionPercentage autopopulateContributionPercentage={autopopulateContributionPercentage} />
-        </Stack>
         <SummaryTable
           paychecks={PAYCHECKS}
           income={income}

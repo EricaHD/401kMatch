@@ -8,7 +8,4 @@ export default {
     paddingRight: 5,
     textAlign: 'center',
   },
-  autopopulateButtons: {
-    marginBottom: '30px',
-  },
 };
