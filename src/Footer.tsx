@@ -33,7 +33,7 @@ const Footer = () => {
 
   const fidelity = [
     'Fidelity only allows integer contribution percentages (as does this calculator).',
-    'Fidelity will automatically cap 401k contributions at the yearly limit, but if you contributed to a different 401k account for another job this year, you are responsible for contributing the correct amount to this account.',
+    'The company should automatically cap 401k contributions at the yearly limit, but if you contributed to a different 401k account for another job this year, you are responsible for contributing the correct amount to this account.',
     "Fidelity's website doesn't update as soon as contributions are made, and the way it displays end of year contributions can be misleading. I recommend using payslips as a source of truth.",
   ];
 
@@ -47,7 +47,7 @@ const Footer = () => {
 
   const feedback = (
     <Typography variant="body1">
-      {'Yay! 🎉 Feel free to send me a message through our company Slack or '}
+      {'Yay! 🎉 Feel free to send me a message on '}
       <Link href="https://www.LinkedIn.com/in/EricaHD" target="_blank" rel="noreferrer">
         LinkedIn
       </Link>
