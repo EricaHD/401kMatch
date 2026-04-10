@@ -9,7 +9,7 @@ export default {
   tableRow: {
     height: '60px',
     '&:last-child td, &:last-child th': { border: 0 },
-    '&:last-child': {
+    '&:first-child, &:last-child': {
       backgroundColor: '#f4f4f4',
     },
   },

@@ -46,14 +46,12 @@ const SummaryTable = ({
       <Table size="small">
         {/* Header */}
         <TableHead>
-          <TableRow>
+          <TableRow sx={styles.tableRow}>
             <TableCell />
             <TableCell>
               <Typography variant="body1">
                 <b>
                   Paycheck Income
-                  <br />
-                  (annual salary ÷ 24)
                 </b>
               </Typography>
             </TableCell>
@@ -77,7 +75,7 @@ const SummaryTable = ({
         {/* Rows */}
         <TableBody>
           {paychecks.map((paycheck, idx) => (
-            <TableRow sx={styles.tableRow} key={paycheck}>
+            <TableRow key={paycheck}>
               <TableCell component="th" scope="row" key={`${paycheck}-paycheck`}>
                 <Typography variant="body1">
                   <b>{paycheck}</b>
