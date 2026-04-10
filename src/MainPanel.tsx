@@ -11,12 +11,12 @@ import styles from './styles/MainPanel';
 
 interface MainPanelProps {
   numPaychecks: number;
-  cumulativeEmployeeContribution: number;
   ageCategory: keyof typeof AGE_TO_MAX_EMPLOYEE_CONTRIBUTION;
-  cumulativeCompanyContribution: number;
   maxCompanyContribution: number;
   employeeSeries: number[];
   companySeries: number[];
+  cumulativeEmployeeContributions: number[];
+  cumulativeCompanyContributions: number[];
   income: number[];
   onChangeIncome: (idx: number, value: number) => void;
   contributionPercentage: number[];
@@ -26,12 +26,12 @@ interface MainPanelProps {
 
 const MainPanel: React.FC<MainPanelProps> = ({
   numPaychecks,
-  cumulativeEmployeeContribution,
   ageCategory,
-  cumulativeCompanyContribution,
   maxCompanyContribution,
   employeeSeries,
   companySeries,
+  cumulativeEmployeeContributions,
+  cumulativeCompanyContributions,
   income,
   onChangeIncome,
   contributionPercentage,
@@ -43,12 +43,12 @@ const MainPanel: React.FC<MainPanelProps> = ({
       <Stack>
         <Stack direction="row" spacing={7} justifyContent="center">
           <CumulativeContributionInfo
-            cumulativeContribution={cumulativeEmployeeContribution}
+            cumulativeContribution={cumulativeEmployeeContributions.length > 0 ? cumulativeEmployeeContributions[cumulativeEmployeeContributions.length - 1] : 0}
             maximumContribution={AGE_TO_MAX_EMPLOYEE_CONTRIBUTION[ageCategory]}
             employeeOrCompany={'employee'}
           />
           <CumulativeContributionInfo
-            cumulativeContribution={cumulativeCompanyContribution}
+            cumulativeContribution={cumulativeCompanyContributions.length > 0 ? cumulativeCompanyContributions[cumulativeCompanyContributions.length - 1] : 0}
             maximumContribution={maxCompanyContribution}
             employeeOrCompany={'company'}
           />
@@ -70,10 +70,8 @@ const MainPanel: React.FC<MainPanelProps> = ({
           companyContributionPercentage={companyContributionPercentage}
           employeeContributions={employeeSeries}
           companyContributions={companySeries}
-          cumulativeEmployeeContribution={cumulativeEmployeeContribution}
-          maximumEmployeeContribution={AGE_TO_MAX_EMPLOYEE_CONTRIBUTION[ageCategory]}
-          cumulativeCompanyContribution={cumulativeCompanyContribution}
-          maximumCompanyContribution={maxCompanyContribution}
+          cumulativeEmployeeContributions={cumulativeEmployeeContributions}
+          cumulativeCompanyContributions={cumulativeCompanyContributions}
         />
       </Stack>
       <Footer />

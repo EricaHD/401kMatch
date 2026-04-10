@@ -130,8 +130,8 @@ const App = () => {
 
   const [employeeSeries, setEmployeeSeries] = React.useState([]);
   const [companySeries, setCompanySeries] = React.useState([]);
-  const [cumulativeEmployeeContribution, setCumulativeEmployeeContribution] = React.useState(0);
-  const [cumulativeCompanyContribution, setCumulativeCompanyContribution] = React.useState(0);
+  const [cumulativeEmployeeContributions, setCumulativeEmployeeContributions] = React.useState([]);
+  const [cumulativeCompanyContributions, setCumulativeCompanyContributions] = React.useState([]);
 
   React.useEffect(() => {
     let newCumulativeEmployeeContribution = 0;
@@ -139,6 +139,8 @@ const App = () => {
 
     const newEmployeeSeries = [];
     const newCompanySeries = [];
+    const newCumulativeEmployeeSeries = [];
+    const newCumulativeCompanySeries = [];
     for (let i = 0; i < numPaychecks; i++) {
       // Employee contribution
       let employeeContribution = roundToNearestCent((income[i] * contributionPercentage[i]) / 100.0);
@@ -163,6 +165,8 @@ const App = () => {
       // Series
       newEmployeeSeries.push(employeeContribution);
       newCompanySeries.push(companyContribution);
+      newCumulativeEmployeeSeries.push(newCumulativeEmployeeContribution);
+      newCumulativeCompanySeries.push(newCumulativeCompanyContribution);
     }
 
     // State setters
@@ -170,8 +174,10 @@ const App = () => {
     setEmployeeSeries(newEmployeeSeries);
     // @ts-ignore
     setCompanySeries(newCompanySeries);
-    setCumulativeEmployeeContribution(newCumulativeEmployeeContribution);
-    setCumulativeCompanyContribution(newCumulativeCompanyContribution);
+    // @ts-ignore
+    setCumulativeEmployeeContributions(newCumulativeEmployeeSeries);
+    // @ts-ignore
+    setCumulativeCompanyContributions(newCumulativeCompanySeries);
   }, [ageCategory, income, contributionPercentage, companyContributionPercentage, numPaychecks]);
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -190,12 +196,12 @@ const App = () => {
       />
       <MainPanel
         numPaychecks={numPaychecks}
-        cumulativeEmployeeContribution={cumulativeEmployeeContribution}
         ageCategory={ageCategory}
-        cumulativeCompanyContribution={cumulativeCompanyContribution}
         maxCompanyContribution={maxCompanyContribution}
         employeeSeries={employeeSeries}
         companySeries={companySeries}
+        cumulativeEmployeeContributions={cumulativeEmployeeContributions}
+        cumulativeCompanyContributions={cumulativeCompanyContributions}
         income={income}
         onChangeIncome={onChangeIncome}
         contributionPercentage={contributionPercentage}

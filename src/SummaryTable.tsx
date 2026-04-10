@@ -21,10 +21,8 @@ interface Props {
   companyContributionPercentage: number;
   employeeContributions: number[];
   companyContributions: number[];
-  cumulativeEmployeeContribution: number;
-  maximumEmployeeContribution: number;
-  cumulativeCompanyContribution: number;
-  maximumCompanyContribution: number;
+  cumulativeEmployeeContributions: number[];
+  cumulativeCompanyContributions: number[];
 }
 
 const SummaryTable = ({
@@ -36,10 +34,8 @@ const SummaryTable = ({
   companyContributionPercentage,
   employeeContributions,
   companyContributions,
-  cumulativeEmployeeContribution,
-  maximumEmployeeContribution,
-  cumulativeCompanyContribution,
-  maximumCompanyContribution,
+  cumulativeEmployeeContributions,
+  cumulativeCompanyContributions,
 }: Props) => {
   return (
     <TableContainer component={Paper} sx={styles.tableContainer}>
@@ -67,7 +63,17 @@ const SummaryTable = ({
             </TableCell>
             <TableCell sx={styles.centerText}>
               <Typography variant="body1">
+                <b>Cumulative Employee Contribution</b>
+              </Typography>
+            </TableCell>
+            <TableCell sx={styles.centerText}>
+              <Typography variant="body1">
                 <b>Company Contribution</b>
+              </Typography>
+            </TableCell>
+            <TableCell sx={styles.centerText}>
+              <Typography variant="body1">
+                <b>Cumulative Company Contribution</b>
               </Typography>
             </TableCell>
           </TableRow>
@@ -95,6 +101,11 @@ const SummaryTable = ({
                 <TableCell component="th" scope="row" key={`${paycheck}-employee`} sx={styles.centerText}>
                   <Typography variant="body1">{currencyFormatter(employeeContributions[idx])}</Typography>
                 </TableCell>
+                <TableCell component="th" scope="row" key={`${paycheck}-cumulative-employee`} sx={styles.centerText}>
+                  <Typography variant="body1">
+                    {currencyFormatter(cumulativeEmployeeContributions[idx])}
+                  </Typography>
+                </TableCell>
                 <TableCell component="th" scope="row" key={`${paycheck}-company`} sx={styles.centerText}>
                   <Typography variant="body1">{currencyFormatter(companyContributions[idx])}</Typography>
                   <Typography variant="caption">
@@ -102,6 +113,11 @@ const SummaryTable = ({
                       Maximum possible:{' '}
                       {currencyFormatter(roundToNearestCent((income[idx] * companyContributionPercentage) / 100))}
                     </i>
+                  </Typography>
+                </TableCell>
+                <TableCell component="th" scope="row" key={`${paycheck}-cumulative-employee`} sx={styles.centerText}>
+                  <Typography variant="body1">
+                    {currencyFormatter(cumulativeCompanyContributions[idx])}
                   </Typography>
                 </TableCell>
               </TableRow>
@@ -119,28 +135,10 @@ const SummaryTable = ({
               </Typography>
             </TableCell>
             <TableCell />
-            <TableCell component="th" scope="row" sx={styles.centerText}>
-              <Typography variant="body1">
-                <b>{currencyFormatter(cumulativeEmployeeContribution)}</b>
-              </Typography>
-              <Typography variant="caption">
-                <i>
-                  Maximum possible:{' '}
-                  {currencyFormatter(maximumEmployeeContribution)}
-                </i>
-              </Typography>
-            </TableCell>
-            <TableCell component="th" scope="row" sx={styles.centerText}>
-              <Typography variant="body1">
-                <b>{currencyFormatter(cumulativeCompanyContribution)}</b>
-              </Typography>
-              <Typography variant="caption">
-                <i>
-                  Maximum possible:{' '}
-                  {currencyFormatter(maximumCompanyContribution)}
-                </i>
-              </Typography>
-            </TableCell>
+            <TableCell />
+            <TableCell />
+            <TableCell />
+            <TableCell />
           </TableRow>
         </TableBody>
       </Table>
