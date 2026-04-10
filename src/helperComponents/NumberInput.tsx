@@ -24,17 +24,20 @@ const NumberInput = React.forwardRef(function CustomNumberInput(
     } as any,
   };
 
-  if (endAdornment) {
-    (slotProps as any).input = {
-      endAdornment: <InputAdornment>{endAdornment}</InputAdornment>,
-    };
-  }
+  const customRoot = React.forwardRef(function CustomRoot(props: any, ref: any) {
+    return (
+      <StyledInputRoot ref={ref} {...props}>
+        {props.children}
+        {endAdornment && <InputAdornment>{endAdornment}</InputAdornment>}
+      </StyledInputRoot>
+    );
+  });
 
   return (
     // @ts-ignore
     <BaseNumberInput
       slots={{
-        root: StyledInputRoot,
+        root: customRoot,
         input: StyledInput,
         incrementButton: StyledButton,
         decrementButton: StyledButton,
