@@ -62,8 +62,7 @@ const MainPanel: React.FC<MainPanelProps> = ({
           </i>
         </Typography>
         <SummaryTable
-          // TODO: come back to this
-          paychecks={Array.from({ length: numPaychecks }, (_, i) => `#${i + 1}`)}
+          numPaychecks={numPaychecks}
           income={income}
           onChangeIncome={onChangeIncome}
           contributionPercentage={contributionPercentage}

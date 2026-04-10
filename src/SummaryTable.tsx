@@ -13,7 +13,7 @@ import { currencyFormatter, roundToNearestCent } from './utils/monetaryCalculati
 import styles from './styles/SummaryTable';
 
 interface Props {
-  paychecks: string[];
+  numPaychecks: number;
   income: number[];
   onChangeIncome: (idx: number, value: number) => void;
   contributionPercentage: number[];
@@ -28,7 +28,7 @@ interface Props {
 }
 
 const SummaryTable = ({
-  paychecks,
+  numPaychecks,
   income,
   onChangeIncome,
   contributionPercentage,
@@ -74,36 +74,39 @@ const SummaryTable = ({
         </TableHead>
         {/* Rows */}
         <TableBody>
-          {paychecks.map((paycheck, idx) => (
-            <TableRow key={paycheck}>
-              <TableCell component="th" scope="row" key={`${paycheck}-paycheck`}>
-                <Typography variant="body1">
-                  <b>{paycheck}</b>
-                </Typography>
-              </TableCell>
-              <TableCell component="th" scope="row" key={`${paycheck}-income`}>
-                <IncomeInput value={income[idx]} onChange={(val) => onChangeIncome(idx, val)} />
-              </TableCell>
-              <TableCell component="th" scope="row" key={`${paycheck}-contrib`}>
-                <ContributionPercentageInput
-                  value={contributionPercentage[idx]}
-                  onChange={(event, val) => onChangeContributionPercentage(idx, val)}
-                />
-              </TableCell>
-              <TableCell component="th" scope="row" key={`${paycheck}-employee`} sx={styles.centerText}>
-                <Typography variant="body1">{currencyFormatter(employeeContributions[idx])}</Typography>
-              </TableCell>
-              <TableCell component="th" scope="row" key={`${paycheck}-company`} sx={styles.centerText}>
-                <Typography variant="body1">{currencyFormatter(companyContributions[idx])}</Typography>
-                <Typography variant="caption">
-                  <i>
-                    Maximum possible:{' '}
-                    {currencyFormatter(roundToNearestCent((income[idx] * companyContributionPercentage) / 100))}
-                  </i>
-                </Typography>
-              </TableCell>
-            </TableRow>
-          ))}
+          {Array.from({ length: numPaychecks }, (_, idx) => idx).map((idx) => {
+            const paycheck = `#${idx + 1}`;
+            return (
+              <TableRow key={paycheck}>
+                <TableCell component="th" scope="row" key={`${paycheck}-paycheck`}>
+                  <Typography variant="body1">
+                    <b>{paycheck}</b>
+                  </Typography>
+                </TableCell>
+                <TableCell component="th" scope="row" key={`${paycheck}-income`}>
+                  <IncomeInput value={income[idx]} onChange={(val) => onChangeIncome(idx, val)} />
+                </TableCell>
+                <TableCell component="th" scope="row" key={`${paycheck}-contrib`}>
+                  <ContributionPercentageInput
+                    value={contributionPercentage[idx]}
+                    onChange={(event, val) => onChangeContributionPercentage(idx, val)}
+                  />
+                </TableCell>
+                <TableCell component="th" scope="row" key={`${paycheck}-employee`} sx={styles.centerText}>
+                  <Typography variant="body1">{currencyFormatter(employeeContributions[idx])}</Typography>
+                </TableCell>
+                <TableCell component="th" scope="row" key={`${paycheck}-company`} sx={styles.centerText}>
+                  <Typography variant="body1">{currencyFormatter(companyContributions[idx])}</Typography>
+                  <Typography variant="caption">
+                    <i>
+                      Maximum possible:{' '}
+                      {currencyFormatter(roundToNearestCent((income[idx] * companyContributionPercentage) / 100))}
+                    </i>
+                  </Typography>
+                </TableCell>
+              </TableRow>
+            );
+          })}
           <TableRow sx={styles.tableRow}>
             <TableCell component="th" scope="row">
               <Typography variant="body1">
