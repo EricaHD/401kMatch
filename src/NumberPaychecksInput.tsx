@@ -15,7 +15,7 @@ const NumberPaychecksInput = ({ value, onChange }: Props) => {
         endAdornment=""
         onChange={(event: React.SyntheticEvent, val: number) => onChange(event, val)}
         min={1}
-        max={100}
+        max={104}
         value={value}
       />
     </Stack>

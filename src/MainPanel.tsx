@@ -6,10 +6,11 @@ import Footer from './Footer';
 import CumulativeContributionInfo from './CumulativeContributionInfo';
 import SummaryTable from './SummaryTable';
 import SectionTitle from './SectionTitle';
-import { AGE_TO_MAX_EMPLOYEE_CONTRIBUTION, PAYCHECKS } from './utils/constants';
+import { AGE_TO_MAX_EMPLOYEE_CONTRIBUTION } from './utils/constants';
 import styles from './styles/MainPanel';
 
 interface MainPanelProps {
+  numPaychecks: number;
   cumulativeEmployeeContribution: number;
   ageCategory: keyof typeof AGE_TO_MAX_EMPLOYEE_CONTRIBUTION;
   cumulativeCompanyContribution: number;
@@ -24,6 +25,7 @@ interface MainPanelProps {
 }
 
 const MainPanel: React.FC<MainPanelProps> = ({
+  numPaychecks,
   cumulativeEmployeeContribution,
   ageCategory,
   cumulativeCompanyContribution,
@@ -60,7 +62,8 @@ const MainPanel: React.FC<MainPanelProps> = ({
           </i>
         </Typography>
         <SummaryTable
-          paychecks={PAYCHECKS}
+          // TODO: come back to this
+          paychecks={Array.from({ length: numPaychecks }, (_, i) => `#${i + 1}`)}
           income={income}
           onChangeIncome={onChangeIncome}
           contributionPercentage={contributionPercentage}

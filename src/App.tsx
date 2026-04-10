@@ -8,7 +8,7 @@ import {
   DEFAULT_COMPANY_CONTRIBUTION_PERCENTAGE,
   DEFAULT_INCOME,
   DEFAULT_RETIREMENT_CONTRIBUTION,
-  NUM_PAYCHECKS,
+  DEFAULT_NUM_PAYCHECKS,
 } from './utils/constants';
 import { roundToNearestCent, calculatePercentOfIncome } from './utils/monetaryCalculations';
 import { useLocalStorageState, setLocalStorage } from './utils/localStorage';
@@ -23,15 +23,17 @@ const App = () => {
   setLocalStorage('local_storage_max_contribution_2025', null);
   setLocalStorage('local_storage_contribution_percentage', null);
   setLocalStorage('local_storage_income', null);
+  setLocalStorage('local_storage_age_category_2025', null); // also used in 2026
+  setLocalStorage('local_storage_company_contribution_percentage', null);
+  setLocalStorage('local_storage_num_paychecks', null);
+  setLocalStorage('local_storage_employee_income', null);
+  setLocalStorage('local_storage_employee_contribution_percentage', null);
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // STATE - AGE & MAX CONTRIBUTION                                                                                   //
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  const [ageCategory, setAgeCategory] = useLocalStorageState(
-    'local_storage_age_category_2025', // also used in 2026
-    AGE_CATEGORIES.UNDER_50
-  );
+  const [ageCategory, setAgeCategory] = useLocalStorageState('ls_age', AGE_CATEGORIES.UNDER_50);
 
   const onChangeMaxEmployeeContribution = (event: React.SyntheticEvent): void => {
     const newAgeCategory = (event.target as HTMLInputElement).value;
@@ -44,7 +46,7 @@ const App = () => {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   const [companyContributionPercentage, setCompanyContributionPercentage] = useLocalStorageState(
-    'local_storage_company_contribution_percentage',
+    'ls_company_contribution_percentage',
     DEFAULT_COMPANY_CONTRIBUTION_PERCENTAGE
   );
 
@@ -54,11 +56,39 @@ const App = () => {
   };
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // STATE - NUMBER OF PAYCHECKS                                                                                      //
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  const [numPaychecks, setNumPaychecks] = useLocalStorageState('ls_num_paychecks', DEFAULT_NUM_PAYCHECKS);
+
+  const onChangeNumPaychecks = (event: React.SyntheticEvent, val: number): void => {
+    const newValue = val === null ? DEFAULT_NUM_PAYCHECKS : val;
+    setNumPaychecks(newValue);
+  };
+
+  React.useEffect(() => {
+    // Change income array
+    if (income.length < numPaychecks) {
+      const newIncome = [...income, ...Array(numPaychecks - income.length).fill(0)];
+      setIncome(newIncome);
+    } else if (income.length > numPaychecks) {
+      setIncome(income.slice(0, numPaychecks));
+    }
+    // Change contribution percentage array
+    if (contributionPercentage.length < numPaychecks) {
+      const newContributionPercentage = [...contributionPercentage, ...Array(numPaychecks - contributionPercentage.length).fill(0)];
+      setContributionPercentage(newContributionPercentage);
+    } else if (contributionPercentage.length > numPaychecks) {
+      setContributionPercentage(contributionPercentage.slice(0, numPaychecks));
+    }
+  }, [numPaychecks]);
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // STATE - INCOME                                                                                                   //
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  const initialIncomeArray = Array(NUM_PAYCHECKS).fill(DEFAULT_INCOME);
-  const [income, setIncome] = useLocalStorageState('local_storage_employee_income', initialIncomeArray);
+  const initialIncomeArray = Array(numPaychecks).fill(DEFAULT_INCOME);
+  const [income, setIncome] = useLocalStorageState('ls_employee_income', initialIncomeArray);
 
   const onChangeIncome = (idx: number, value: number): void => {
     const newValue = value === null ? 0 : value;
@@ -82,9 +112,9 @@ const App = () => {
   // STATE - CONTRIBUTION PERCENTAGES                                                                                 //
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  const initialContributionPercentage = Array(NUM_PAYCHECKS).fill(DEFAULT_RETIREMENT_CONTRIBUTION);
+  const initialContributionPercentage = Array(numPaychecks).fill(DEFAULT_RETIREMENT_CONTRIBUTION);
   const [contributionPercentage, setContributionPercentage] = useLocalStorageState(
-    'local_storage_employee_contribution_percentage',
+    'ls_employee_contribution_percentage',
     initialContributionPercentage
   );
 
@@ -109,7 +139,7 @@ const App = () => {
 
     const newEmployeeSeries = [];
     const newCompanySeries = [];
-    for (let i = 0; i < NUM_PAYCHECKS; i++) {
+    for (let i = 0; i < numPaychecks; i++) {
       // Employee contribution
       let employeeContribution = roundToNearestCent((income[i] * contributionPercentage[i]) / 100.0);
       if (newCumulativeEmployeeContribution + employeeContribution > AGE_TO_MAX_EMPLOYEE_CONTRIBUTION[ageCategory]) {
@@ -142,7 +172,7 @@ const App = () => {
     setCompanySeries(newCompanySeries);
     setCumulativeEmployeeContribution(newCumulativeEmployeeContribution);
     setCumulativeCompanyContribution(newCumulativeCompanyContribution);
-  }, [ageCategory, income, contributionPercentage, companyContributionPercentage]);
+  }, [ageCategory, income, contributionPercentage, companyContributionPercentage, numPaychecks]);
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // RETURN                                                                                                           //
@@ -151,12 +181,15 @@ const App = () => {
   return (
     <Box sx={styles.box}>
       <SidePanel
+        numPaychecks={numPaychecks}
+        onChangeNumPaychecks={onChangeNumPaychecks}
         companyContributionPercentage={companyContributionPercentage}
         onChangeCompanyContributionPercentage={onChangeCompanyContributionPercentage}
         ageCategory={ageCategory}
         onChangeMaxEmployeeContribution={onChangeMaxEmployeeContribution}
       />
       <MainPanel
+        numPaychecks={numPaychecks}
         cumulativeEmployeeContribution={cumulativeEmployeeContribution}
         ageCategory={ageCategory}
         cumulativeCompanyContribution={cumulativeCompanyContribution}

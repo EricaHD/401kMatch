@@ -7,11 +7,14 @@ import Divider from '@mui/material/Divider';
 import Header from './Header';
 import AgeSelection from './AgeSelection';
 import ContributionPercentageInput from './ContributionPercentageInput';
+import NumberPaychecksInput from './NumberPaychecksInput';
 import { AGE_TO_MAX_EMPLOYEE_CONTRIBUTION } from './utils/constants';
 import { currencyWithoutCentsFormatter } from './utils/monetaryCalculations';
 import styles from './styles/SidePanel';
 
 interface SidePanelProps {
+  numPaychecks: number;
+  onChangeNumPaychecks: (event: React.SyntheticEvent, val: number) => void;
   companyContributionPercentage: number;
   onChangeCompanyContributionPercentage: (event: React.SyntheticEvent, val: number) => void;
   ageCategory: keyof typeof AGE_TO_MAX_EMPLOYEE_CONTRIBUTION;
@@ -19,6 +22,8 @@ interface SidePanelProps {
 }
 
 const SidePanel: React.FC<SidePanelProps> = ({
+  numPaychecks,
+  onChangeNumPaychecks,
   companyContributionPercentage,
   onChangeCompanyContributionPercentage,
   ageCategory,
@@ -28,6 +33,14 @@ const SidePanel: React.FC<SidePanelProps> = ({
     <Drawer sx={styles.titleBackgroundImage} variant="permanent" anchor="left">
       <Header />
       <Box sx={styles.inputs}>
+        <Divider sx={styles.divider} />
+        <Stack direction="row" spacing={3} alignItems="center" marginBottom={'30px'}>
+          <Typography variant="subtitle1">Number of paychecks:</Typography>
+          <NumberPaychecksInput
+            value={numPaychecks}
+            onChange={onChangeNumPaychecks}
+          />
+        </Stack>
         <Divider sx={styles.divider} />
         <Stack direction="row" spacing={3} alignItems="center" marginBottom={'30px'}>
           <Typography variant="subtitle1">Company match percentage:</Typography>
