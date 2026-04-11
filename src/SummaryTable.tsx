@@ -115,7 +115,7 @@ const SummaryTable = ({
                     </i>
                   </Typography>
                 </TableCell>
-                <TableCell component="th" scope="row" key={`${paycheck}-cumulative-employee`} sx={styles.centerText}>
+                <TableCell component="th" scope="row" key={`${paycheck}-cumulative-company`} sx={styles.centerText}>
                   <Typography variant="body1">
                     {currencyFormatter(cumulativeCompanyContributions[idx])}
                   </Typography>
@@ -123,6 +123,7 @@ const SummaryTable = ({
               </TableRow>
             );
           })}
+          {/* Footer */}
           <TableRow sx={styles.tableRow}>
             <TableCell component="th" scope="row">
               <Typography variant="body1">
