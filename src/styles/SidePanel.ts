@@ -5,6 +5,10 @@ export default {
     margin: '30px 0',
     background: 'gray',
   },
+  inputStack: {
+    alignItems: 'center',
+    marginBottom: '30px',
+  },
   inputs: {
     paddingBottom: 5,
     paddingLeft: 5,

@@ -8,15 +8,16 @@ import Header from './Header';
 import AgeSelection from './AgeSelection';
 import ContributionPercentageInput from './ContributionPercentageInput';
 import NumberPaychecksInput from './NumberPaychecksInput';
+import { NumberFieldChangeEvent } from './helperComponents/NumberInput';
 import { AGE_TO_MAX_EMPLOYEE_CONTRIBUTION } from './utils/constants';
 import { currencyWithoutCentsFormatter } from './utils/monetaryCalculations';
 import styles from './styles/SidePanel';
 
 interface SidePanelProps {
   numPaychecks: number;
-  onChangeNumPaychecks: (event: React.SyntheticEvent, val: number) => void;
+  onChangeNumPaychecks: (val: number | null, event: NumberFieldChangeEvent) => void;
   companyContributionPercentage: number;
-  onChangeCompanyContributionPercentage: (event: React.SyntheticEvent, val: number) => void;
+  onChangeCompanyContributionPercentage: (val: number | null, event: NumberFieldChangeEvent) => void;
   ageCategory: keyof typeof AGE_TO_MAX_EMPLOYEE_CONTRIBUTION;
   onChangeMaxEmployeeContribution: (event: React.SyntheticEvent) => void;
 }
@@ -34,7 +35,7 @@ const SidePanel: React.FC<SidePanelProps> = ({
       <Header />
       <Box sx={styles.inputs}>
         <Divider sx={styles.divider} />
-        <Stack direction="row" spacing={3} alignItems="center" marginBottom={'30px'}>
+        <Stack direction="row" spacing={3} sx={styles.inputStack}>
           <Typography variant="subtitle1">Number of paychecks:</Typography>
           <NumberPaychecksInput
             value={numPaychecks}
@@ -42,7 +43,7 @@ const SidePanel: React.FC<SidePanelProps> = ({
           />
         </Stack>
         <Divider sx={styles.divider} />
-        <Stack direction="row" spacing={3} alignItems="center" marginBottom={'30px'}>
+        <Stack direction="row" spacing={3} sx={styles.inputStack}>
           <Typography variant="subtitle1">Company match percentage:</Typography>
           <ContributionPercentageInput
             value={companyContributionPercentage}

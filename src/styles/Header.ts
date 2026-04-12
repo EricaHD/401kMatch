@@ -19,5 +19,6 @@ export default {
   },
   subtitleText: {
     fontStyle: 'italic',
+    marginTop: '20px',
   },
 };

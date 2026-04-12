@@ -17,7 +17,7 @@ interface Props {
   income: number[];
   onChangeIncome: (idx: number, value: number) => void;
   contributionPercentage: number[];
-  onChangeContributionPercentage: (idx: number, value: number) => void;
+  onChangeContributionPercentage: (idx: number, value: number | null) => void;
   companyContributionPercentage: number;
   employeeContributions: number[];
   companyContributions: number[];
@@ -95,7 +95,7 @@ const SummaryTable = ({
                 <TableCell component="th" scope="row" key={`${paycheck}-contrib`}>
                   <ContributionPercentageInput
                     value={contributionPercentage[idx]}
-                    onChange={(event, val) => onChangeContributionPercentage(idx, val)}
+                    onChange={(val, event) => onChangeContributionPercentage(idx, val)}
                   />
                 </TableCell>
                 <TableCell component="th" scope="row" key={`${paycheck}-employee`} sx={styles.centerText}>

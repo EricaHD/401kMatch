@@ -32,6 +32,11 @@ module.exports = {
       '.otf',
       '.svg',
     ],
+    // TODO: try removing this if we upgrade to React 18 (or 19)
+    alias: {
+      'react/jsx-runtime': 'react/jsx-runtime.js',
+      'react/jsx-dev-runtime': 'react/jsx-dev-runtime.js',
+    },
   },
 
   // Determine how modules within the project are treated

@@ -2,6 +2,7 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import SidePanel from './SidePanel';
 import MainPanel from './MainPanel';
+import { NumberFieldChangeEvent } from './helperComponents/NumberInput';
 import {
   AGE_CATEGORIES,
   AGE_TO_MAX_EMPLOYEE_CONTRIBUTION,
@@ -50,7 +51,7 @@ const App = () => {
     DEFAULT_COMPANY_CONTRIBUTION_PERCENTAGE
   );
 
-  const onChangeCompanyContributionPercentage = (event: React.SyntheticEvent, val: number): void => {
+  const onChangeCompanyContributionPercentage = (val: number | null, event: NumberFieldChangeEvent): void => {
     const newValue = val === null ? 0 : val;
     setCompanyContributionPercentage(newValue);
   };
@@ -61,7 +62,7 @@ const App = () => {
 
   const [numPaychecks, setNumPaychecks] = useLocalStorageState('ls_num_paychecks', DEFAULT_NUM_PAYCHECKS);
 
-  const onChangeNumPaychecks = (event: React.SyntheticEvent, val: number): void => {
+  const onChangeNumPaychecks = (val: number | null, event: NumberFieldChangeEvent): void => {
     const newValue = val === null ? DEFAULT_NUM_PAYCHECKS : val;
     setNumPaychecks(newValue);
   };
@@ -118,7 +119,7 @@ const App = () => {
     initialContributionPercentage
   );
 
-  const onChangeContributionPercentage = (idx: number, value: number): void => {
+  const onChangeContributionPercentage = (idx: number, value: number | null): void => {
     const newValue = value === null ? 0 : value;
     const newContributionPercentage = Object.assign([...contributionPercentage], { [idx]: newValue });
     setContributionPercentage(newContributionPercentage);

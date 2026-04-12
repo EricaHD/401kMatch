@@ -14,7 +14,7 @@ const Header = () => {
         <br />
         Calculator
       </Typography>
-      <Typography variant="subtitle1" marginTop={'20px'} sx={styles.subtitleText}>
+      <Typography variant="subtitle1" sx={styles.subtitleText}>
         This calculator assumes the company has a per-paycheck matching system and there is no true-up match.
       </Typography>
     </Box>

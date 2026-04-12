@@ -20,7 +20,7 @@ interface MainPanelProps {
   income: number[];
   onChangeIncome: (idx: number, value: number) => void;
   contributionPercentage: number[];
-  onChangeContributionPercentage: (idx: number, value: number) => void;
+  onChangeContributionPercentage: (idx: number, value: number | null) => void;
   companyContributionPercentage: number;
 }
 
@@ -41,7 +41,7 @@ const MainPanel: React.FC<MainPanelProps> = ({
   return (
     <Box component="main" sx={styles.box}>
       <Stack>
-        <Stack direction="row" spacing={7} justifyContent="center">
+        <Stack direction="row" spacing={7} sx={styles.cumulativeContributionStack}>
           <CumulativeContributionInfo
             cumulativeContribution={cumulativeEmployeeContributions.length > 0 ? cumulativeEmployeeContributions[cumulativeEmployeeContributions.length - 1] : 0}
             maximumContribution={AGE_TO_MAX_EMPLOYEE_CONTRIBUTION[ageCategory]}
