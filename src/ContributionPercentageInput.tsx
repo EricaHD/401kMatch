@@ -1,4 +1,3 @@
-import React from 'react';
 import Stack from '@mui/material/Stack';
 import { NumberInput, NumberFieldChangeEvent } from './helperComponents/NumberInput';
 import styles from './styles/ContributionPercentageInput';
