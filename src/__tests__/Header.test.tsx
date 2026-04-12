@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import Header from '../App';
+import Header from '../Header';
 
 test('Header component renders the year', () => {
   render(<Header />);
